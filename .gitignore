@@ -1,4 +1,14 @@
-reated by https://www.gitignore.io/api/vim,c++,sublimetext
+# Created by https://www.gitignore.io/api/vim,c++,sublimetext
+# Modified by MackoPes
+
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
 
 ### C++ ###
 # Prerequisites
