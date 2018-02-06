@@ -78,7 +78,7 @@ int Board::number_of_pawns(tile p) const {
   return sum;
 }
 
-void Board::make_move(Move move) {
+void Board::apply_move(Move move) {
   //pre: move is valid (this has to be checked!)
 
   pair_ii from = move.get_from();

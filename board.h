@@ -27,7 +27,7 @@ class Board {
 		friend std::ostream& operator<< (std::ostream &out, Board const& board);		
 		tile won() const;
 		int number_of_pawns(tile p) const;
-		void make_move(Move move);
+		void apply_move(Move move);
 };
 
 
