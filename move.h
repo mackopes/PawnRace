@@ -3,13 +3,13 @@
 
 //lib includes
 #include <iostream>
-#include <pair>
+#include <utility>
 
 //project includes
 #include "general_header.h"
 #include "tile.h"
 
-typedef std::pair<int, int> pair_ii
+typedef std::pair<int, int> pair_ii;
 
 class Move {
   private:
@@ -19,7 +19,7 @@ class Move {
     bool capture_;
     bool en_passant_;
   public:
-    Move_(tile player, pairii from, pairii to, bool capture, bool en_passant);
+    Move(tile player, pair_ii from, pair_ii to, bool capture, bool en_passant);
     bool is_capture() const {
     	return capture_;
     }
@@ -32,10 +32,7 @@ class Move {
     pair_ii get_to() const {
     	return to_;
     }
-
-    
-
-}
+};
 
 
 
