@@ -7,4 +7,7 @@
 #define BLACKPAWN "\u2659" 
 #define WHITEPAWN "\u265F"
 
+#define BLACKDIR 1
+#define WHITEDIR -1
+
 #endif
