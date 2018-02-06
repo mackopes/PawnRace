@@ -3,13 +3,21 @@
 
 //lib includes
 #include <iostream>
+#include <utility>
+#include <cmath>
+
 //project includes
 #include "general_header.h"
 #include "tile.h"
+#include "utility.h"
+#include "move.h"
+
+typedef std::pair<int, int> pair_ii;
 
 class Board {
 	private:
 		tile tiles_[8][8];
+		bool is_valid_move(Move move);
 	public:
 		bool is_black(int i, int j) const { return tiles_[i][j] == black; }
 		bool is_white(int i, int j) const { return tiles_[i][j] == white; }
@@ -19,6 +27,7 @@ class Board {
 		friend std::ostream& operator<< (std::ostream &out, Board const& board);		
 		tile won() const;
 		int number_of_pawns(tile p) const;
+		void make_move(Move move);
 };
 
 
