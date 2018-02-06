@@ -1,7 +1,7 @@
 all: pawnrace
 
-pawnrace: main.o
-	g++ -Wall main.o board.o -o pawnrace
+pawnrace: main.o move.o
+	g++ -Wall main.o board.o move.o -o pawnrace
 
 main.o: board.o main.cpp
 	g++ -c main.cpp
