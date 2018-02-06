@@ -53,3 +53,29 @@ std::ostream& operator<< (std::ostream &out, Board const& board) {
 
 	return out;
 }
+
+tile Board::won() const {
+	if (number_of_pawns(black) == 0 && number_of_pawns(white) > 0)
+	{
+		return white;
+	}
+
+	if (number_of_pawns(black) > 0 && number_of_pawns(white) == 0) {
+		return black;
+	}
+
+	return none;
+}
+
+int Board::number_of_pawns(tile p) const {
+	int sum = 0;
+	for (int i = 0; i < BOARDSIZE; ++i)
+	{
+		for (int j = 0; j < BOARDSIZE; ++j)
+		{
+			sum = tiles_[i][j] == p ? sum + 1 : sum;
+		}
+	}
+
+	return sum;
+}

@@ -17,6 +17,8 @@ class Board {
 		Board();
 		Board(int w, int b);
 		friend std::ostream& operator<< (std::ostream &out, Board const& board);		
+		tile won() const;
+		int number_of_pawns(tile p) const;
 };
 
 
