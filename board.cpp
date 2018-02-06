@@ -23,6 +23,11 @@ Board::Board() {
 	}
 }
 
+Board::Board(int w, int b) : Board() {
+	tiles_[BOARDSIZE - 2][w - 1] = none;
+	tiles_[1][b - 1] = none;
+}
+
 std::ostream& operator<< (std::ostream &out, Board const& board) {
 	string alphabet = "   A B C D E F G H   ";
 	cout << alphabet << endl;

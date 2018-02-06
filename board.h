@@ -15,6 +15,7 @@ class Board {
 		bool is_white(int i, int j) const { return tiles_[i][j] == white; }
 		bool is_empty(int i, int j) const { return tiles_[i][j] == none; }
 		Board();
+		Board(int w, int b);
 		friend std::ostream& operator<< (std::ostream &out, Board const& board);		
 };
 

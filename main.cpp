@@ -10,7 +10,7 @@ using std::cout;
 using std::endl;
 
 int main() {
-	Board b;
+	Board b(1,3);
 
 	cout << b << endl;
 }
