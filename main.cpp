@@ -15,8 +15,10 @@ int main() {
 
   cout << b << endl;
   cout << endl;
-  
-  b.apply_move(Move(white, std::make_pair(6, 2), std::make_pair(4, 2), false, true));
 
+  b.apply_move(Move(white, std::make_pair(6, 2), std::make_pair(4, 2), false, true));
+  cout << b << endl;
+
+  b.apply_move(Move(black, std::make_pair(1, 5), std::make_pair(2, 5), false, false));
   cout << b << endl;
 }
