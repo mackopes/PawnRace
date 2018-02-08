@@ -7,3 +7,7 @@ tile get_opposite_player(tile t) {
     return t == black ? white : black;
   }
 }
+
+std::bitset<64> bites(long long a) {
+  return std::bitset<64>(a);
+}

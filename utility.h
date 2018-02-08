@@ -2,6 +2,7 @@
 #define UTILITY_H
 
 //lib includes
+#include <bitset>
 
 //project includes
 #include "general_header.h"
