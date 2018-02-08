@@ -8,7 +8,7 @@
 #include "tile.h"
 
 
-tile get_opposite(tile t);
+tile get_opposite_player(tile t);
 
 
 
