@@ -26,7 +26,7 @@ int random_int(int min, int max) {
 }
 
 template<class T>
-T random_element(std::vector<T> &elements) {
+T Random_Player :: random_element(std::vector<T> &elements) {
   return elements[random_int(0, elements.size() - 1)];
 }
 }
