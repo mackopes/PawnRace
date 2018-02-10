@@ -16,10 +16,18 @@
 typedef std::pair<int, int> pair_ii;
 
 class Game {
-  //players
+ private:
   Board board_;
-  vector<Move> moves;
-
+  vector<Move> moves_;
+  Player white_player_;
+  Player black_palyer_;
+  Player current_player_;
+  int move_counter_;
+ public:
+  Game(int w, int b, Player white_player, Player black_player);
+  Game(Player white_player, Player black_player);
+  void start();
+  bool next_move();
 
 };
 
