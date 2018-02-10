@@ -19,15 +19,15 @@ long long rev_bites(long long side) {  //may be faster
     side >>= 1;
     count--;
   }
-  reverse_num <<= count;
-  return reverse_num;
+  reverse_side <<= count;
+  return reverse_side;
 }
 
 //public functions
 
 long long allmoves(long long black, long long white, long long en_pass, tile player, movetype mov) {
   long long (*move_function)(long long, long long, long long);
-  switch (move) {
+  switch (mov) {
   case fwd:
     move_function = &move_fwd_helper;
     break;
@@ -49,8 +49,8 @@ long long coor_to_bits(int i, int j) {
   return (1L << (i * 8 + j));
 }
 
-pair<int, int> bits_to_coor(long long a) {
-  return std::makepair(a / 8, a & 8);
+pair_ii bits_to_coor(long long a) {
+  return std::make_pair(a / 8, a & 8);
 }
 
 

@@ -1,51 +1,53 @@
 #include "game.h"
 
-Game::Game(int w, int b, Player white_player, Player black_player) {
+Game::Game(int w, int b, Player * white_player, Player * black_player) {
   board_ = Board(w, b);
   black_player_ = black_player;
-  current_player_ = white_player_ = white_player;
+  white_player_ = white_player;
+  current_player_ = white_player_;
   move_counter_ = 0;
 }
 
-Game::Game(Player white_player, Player black_player) {
-  boad_ = Board();
+Game::Game(Player * white_player, Player * black_player) {
+  board_ = Board();
   black_player_ = black_player;
-  current_player_ = white_player_ = white_player;
+  white_player_ = white_player;
+  current_player_ = white_player_;
   move_counter_ = 0;
 }
 
 
-void start() {
+void Game::start() {
   while (next_move())
     continue;
 
   switch (board_.won()) {
   case none:
-    cout << "Draw" << endl;
+    std::cout << "Draw" << std::endl;
     break;
   case black:
-    cout << "Black won" << endl;
+    std::cout << "Black won" << std::endl;
     break;
   case white:
-    cout << "White won" << endl;
+    std::cout << "White won" << std::endl;
     break;
   default:
-    cout << "unknown winner" << endl;
+    std::cout << "unknown winner" << std::endl;
     break;
   }
 }
 
-bool next_move() {
+bool Game::next_move() {
   if (board_.won() == none) {
 
     //print board
-    cout << board << endl;
+    std::cout << board_ << std::endl;
     // print player
 
 
-    Move move = current_player_.get_move(board_);
+    Move move = current_player_ -> get_move(board_);
     if (!board_.apply_move(move)) {
-      cerr << "Move unsuccessfull" << endl;
+      std::cerr << "Move unsuccessfull" << std::endl;
       //print move
       return false;
     }

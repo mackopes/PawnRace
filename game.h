@@ -12,20 +12,23 @@
 #include "tile.h"
 #include "utility.h"
 #include "move.h"
+#include "board.h"
+#include "player.h"
+#include "random_player.h"
 
 typedef std::pair<int, int> pair_ii;
 
 class Game {
  private:
   Board board_;
-  vector<Move> moves_;
-  Player white_player_;
-  Player black_palyer_;
-  Player current_player_;
+  std::vector<Move> moves_;
+  Player * white_player_;
+  Player * black_player_;
+  Player * current_player_;
   int move_counter_;
  public:
-  Game(int w, int b, Player white_player, Player black_player);
-  Game(Player white_player, Player black_player);
+  Game(int w, int b, Player * white_player, Player * black_player);
+  Game(Player * white_player, Player * black_player);
   void start();
   bool next_move();
 

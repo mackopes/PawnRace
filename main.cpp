@@ -24,8 +24,8 @@ int main() {
   b.apply_move(Move(black, std::make_pair(1, 5), std::make_pair(2, 5), false, false));
   cout << b << endl;*/
 
-  Random_Player white_player = Random_Player();
-  Random_Player black_player = Random_Player();
-  Game game = Game(white_player, black_player);
+  Random_Player white_player = Random_Player(white);
+  Random_Player black_player = Random_Player(black);
+  Game game = Game(&white_player, &black_player);
   game.start();
 }
