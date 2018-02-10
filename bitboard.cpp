@@ -28,7 +28,7 @@ long long rev_bites(long long side) {  //may be faster
 long long allmoves(long long black, long long white, long long en_pass, tile player, movetype mov) {
   long long (*move_function)(long long, long long, long long);
   switch (move) {
-fwd:
+  case fwd:
     move_function = &move_fwd_helper;
     break;
   default:
@@ -39,14 +39,18 @@ fwd:
   if (player == black) {
     return (*move_function)(black, white, en_pass);
   } else if (player == white) {
-    return (*move_function)(rev_bites(white), rev_bites(black), rev_bites(en_pass));
+    return rev_bites((*move_function)(rev_bites(white), rev_bites(black), rev_bites(en_pass)));
   } else {
     return 0;
   }
 }
 
-long long bitshift(int i, int j) {
+long long coor_to_bits(int i, int j) {
   return (1L << (i * 8 + j));
+}
+
+pair<int, int> bits_to_coor(long long a) {
+  return std::makepair(a / 8, a & 8);
 }
 
 
@@ -57,11 +61,11 @@ void getll(long long & white, long long & black, long long & en_pass, Board boar
   for (int i = 0; i < BOARDSIZE; ++i) {
     for (int j = 0; j < BOARDSIZE; ++j) {
       if (board.is_white(i, j)) {
-        white |= bitshift(i, j);
+        white |= coor_to_bits(i, j);
       } else if (board.is_black(i, j)) {
-        black |= bitshift(i, j);
+        black |= coor_to_bits(i, j);
       } else if (board.is_en_pass(i, j)) {
-        en_pass |= bitshift(i, j);
+        en_pass |= coor_to_bits(i, j);
       }
     }
   }
