@@ -4,6 +4,7 @@
 //libs includes
 #include <vector>
 #include <random>
+#include <utility>
 
 //project includes
 #include "board.h"

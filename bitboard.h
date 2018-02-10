@@ -3,6 +3,7 @@
 
 //libs includes
 #include <iostream>
+#include <utility>
 
 //project includes
 #include "board.h"
