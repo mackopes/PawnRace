@@ -10,7 +10,7 @@ main.o: board.o game.o main.cpp
 game.o: utility.o move.o game.cpp random_player.o board.o
 	g++ -c game.cpp
 
-randomp_layer.o: move.o board.o bitboard.o random_player.cpp
+random_player.o: move.o board.o bitboard.o random_player.cpp
 	g++ -c random_player.cpp
 
 board.o: move.o utility.o board.cpp 
@@ -19,7 +19,7 @@ board.o: move.o utility.o board.cpp
 move.o: move.cpp
 	g++ -c move.cpp
 
-bitboard.o:
+bitboard.o: bitboard.cpp
 	g++ -c bitboard.cpp
 
 utility.o: utility.cpp
@@ -27,3 +27,4 @@ utility.o: utility.cpp
 
 clean:
 	rm *.o
+	rm pawnrace

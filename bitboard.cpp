@@ -4,29 +4,24 @@
 //helper functions
 
 //get all possible moves of attacker (direction of attacker is south, bithsift right)
-long long move_fwd_helper(long long attacker, long long deffender, long long en_pass) {
-  return (attacker >> 8) & (~ deffender);
+unsigned long long move_fwd_helper(unsigned long long attacker, unsigned long long deffender, unsigned long long en_pass) {
+  return ((attacker << 8L) & (~deffender));
 }
 
-long long rev_bites(long long side) {  //may be faster
-  long long count = sizeof(side) * 8 - 1;
-  long long reverse_side = side;
-
-  side >>= 1;
-  while (side) {
-    reverse_side <<= 1;
-    reverse_side |= side & 1;
-    side >>= 1;
-    count--;
+unsigned long long rev_bites(unsigned long long side) {  //may be faster
+  unsigned long long output = side;
+  for (int i = sizeof(side) * 8 - 1; i; --i) {
+    output <<= 1L;
+    side >>= 1L;
+    output |=  side & 1L;
   }
-  reverse_side <<= count;
-  return reverse_side;
+  return output;
 }
 
 //public functions
 
-long long allmoves(long long black, long long white, long long en_pass, tile player, movetype mov) {
-  long long (*move_function)(long long, long long, long long);
+unsigned long long allmoves(unsigned long long bl, unsigned long long wh, unsigned long long ep, tile player, movetype mov) {
+  unsigned long long (*move_function)(unsigned long long, unsigned long long, unsigned long long);
   switch (mov) {
   case fwd:
     move_function = &move_fwd_helper;
@@ -37,25 +32,31 @@ long long allmoves(long long black, long long white, long long en_pass, tile pla
   }
 
   if (player == black) {
-    return (*move_function)(black, white, en_pass);
+    return (*move_function)(bl, wh, ep);
   } else if (player == white) {
-    return rev_bites((*move_function)(rev_bites(white), rev_bites(black), rev_bites(en_pass)));
+    return rev_bites((*move_function)(rev_bites(wh), rev_bites(bl), rev_bites(ep)));
   } else {
     return 0;
   }
 }
 
-long long coor_to_bits(int i, int j) {
+unsigned long long coor_to_bits(int i, int j) {
   return (1L << (i * 8 + j));
 }
 
-pair_ii bits_to_coor(long long a) {
-  return std::make_pair(a / 8, a & 8);
+pair_ii bits_to_coor(unsigned long long a) {
+  for (int i = 0; i < 64; ++i) {
+    if (a & (1L << i)) {
+      return std::make_pair(i / 8, i % 8);
+      break;
+    }
+  }
+
 }
 
 
 
-void getll(long long & white, long long & black, long long & en_pass, Board board) {
+void getll(unsigned long long & white, unsigned long long & black, unsigned long long & en_pass, Board board) {
   white = black = en_pass = 0;
 
   for (int i = 0; i < BOARDSIZE; ++i) {

@@ -13,11 +13,12 @@
 #include "player.h"
 #include "random_player.h"
 #include "bitboard.h"
+#include "utility.h"
 
 class Random_Player : public Player {
  private:
   //enum movetype {fwd, ffwd, capt, captpass}
-  std::vector <Move> get_all_possible_moves(std::vector<long long> move_ll);
+  std::vector <Move> get_all_possible_moves(std::vector<unsigned long long> move_ll);
   template<typename T>
   T random_element(std::vector<T> & v);
  public:

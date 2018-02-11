@@ -10,6 +10,7 @@
 
 
 tile get_opposite_player(tile t);
+std::bitset<64> bites(unsigned long long a);
 
 
 

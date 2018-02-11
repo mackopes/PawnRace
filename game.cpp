@@ -46,6 +46,8 @@ bool Game::next_move() {
 
 
     Move move = current_player_ -> get_move(board_);
+    std::cout << (current_player_ -> color() == white ? "White" : "Black") << "'s turn" << std::endl;
+
     if (!board_.apply_move(move)) {
       std::cerr << "Move unsuccessfull" << std::endl;
       //print move

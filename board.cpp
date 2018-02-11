@@ -117,6 +117,8 @@ bool Board::is_valid_move(Move move) {
   pair_ii from = move.get_from();
   pair_ii to = move.get_to();
   tile player = move.get_player();
+
+  std::cout << "from " << from.first << ' ' << from.second << " to " << to.first << ' ' << to.second << std::endl;
   int direction = player == black ? BLACKDIR : WHITEDIR;
   if (!move.is_capture() && !move.is_en_passant()) {       // normal fwd move
     return ((from.second == to.second)
