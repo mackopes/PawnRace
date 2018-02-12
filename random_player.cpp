@@ -1,10 +1,12 @@
 #include "random_player.h"
 
-#define ENUMEND fwd
+#define ENUMEND capt_l
 #define ENUMSTART fwd
 
 Random_Player :: Random_Player(tile color) : Player(color) {
-  srand (time(NULL));
+  timeval t1;
+  gettimeofday(&t1, NULL);
+  srand(t1.tv_usec * t1.tv_sec);
 }
 
 Move Random_Player :: get_move(Board board) {
@@ -23,8 +25,12 @@ Move Random_Player :: get_move(Board board) {
   }
 
   std::vector<Move> all_moves = get_all_possible_moves(move_ll);
-  return random_element(all_moves);
-
+  if (all_moves.empty()) {
+    //Move(tile player, pair_ii from, pair_ii to, bool capture, bool en_passant, bool no_move = false);
+    return Move(color(), std::make_pair(-1, -1), std::make_pair(-1, -1), false, false, true);
+  } else {
+    return random_element(all_moves);
+  }
 }
 
 int random_int(int min, int max) {
@@ -43,12 +49,29 @@ std::vector <Move> Random_Player :: get_all_possible_moves(std::vector<unsigned 
     for (int j = 0; j < 64; ++j) {
       unsigned long long pos = move_ll[i] & (1L << j);
       if (pos) {
+        //Move(tile player, pair_ii from, pair_ii to, bool capture, bool en_passant);
+        //enum movetype {fwd, ffwd, capt_r, capt_l, captpass_r, captpass_l};
         switch (static_cast<movetype>(i)) {
         case fwd: {
           unsigned long long orig_pos = (color() == black ? pos >> 8 : pos << 8);
           mv.push_back(Move(color(), bits_to_coor(orig_pos), bits_to_coor(pos), false, false));
-          break;
         }
+        break;
+        case ffwd: {
+          unsigned long long orig_pos = (color() == black ? pos >> 16 : pos << 16);
+          mv.push_back(Move(color(), bits_to_coor(orig_pos), bits_to_coor(pos), false, true));
+        }
+        break;
+        case capt_r: {
+          unsigned long long orig_pos = (color() == black ? pos >> 7 : pos << 7);
+          mv.push_back(Move(color(), bits_to_coor(orig_pos), bits_to_coor(pos), true, false));
+        }
+        break;
+        case capt_l: {
+          unsigned long long orig_pos = (color() == black ? pos >> 9 : pos << 9);
+          mv.push_back(Move(color(), bits_to_coor(orig_pos), bits_to_coor(pos), true, false));
+        }
+        break;
         default:
           break;
         }

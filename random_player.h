@@ -5,6 +5,7 @@
 #include <vector>
 #include <random>
 #include <utility>
+#include <sys/time.h>
 
 //project includes
 #include "board.h"
