@@ -7,6 +7,9 @@
 # Unignore all with extensions
 !*.*
 
+# Unignore my TODO 
+!TODO
+
 # Unignore all dirs
 !*/
 

@@ -1,0 +1,34 @@
+game
+ ✔ get move from player, and make move @done (11-02-18 00:13)
+ ☐ remember all moves
+ ✔ constructors @done (10-02-18 21:37)
+
+
+main
+ ✔ first game! @done (11-02-18 00:13)
+
+bitboard functions
+ ✔ make unsigned long longs out of board @done (08-02-18 23:59)
+ ☐ simulate moves
+   ✔ fwd @done (09-02-18 21:21)
+   ✔ 2 fwd @done (11-02-18 23:15)
+   ✔ pass @done (11-02-18 23:15)
+   ☐ en passant pass
+
+players
+ ☐ random player
+   ☐ en passant capture
+ ☐ print player ??
+ ☐ other players
+   ☐ human player
+   ☐ more to come (WOW!)
+
+optimisations
+ ☐ faster rev_bites
+
+move
+ ✔ print move @done (11-02-18 23:25)
+ ☐ return null instead of move with no_move set?
+
+ board
+ ☐ get winner
