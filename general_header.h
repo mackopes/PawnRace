@@ -13,6 +13,6 @@
 #define BLACKDIR 1
 #define WHITEDIR (-1)
 
-enum movetype {fwd, ffwd, capt, captpass};
+enum movetype {fwd, ffwd, capt_r, capt_l, captpass_r, captpass_l};
 
 #endif
