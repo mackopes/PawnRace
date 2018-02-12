@@ -21,6 +21,8 @@ void Game::start() {
   while (next_move())
     continue;
 
+  std::cout << board_ << std::endl;
+
   switch (board_.won()) {
   case none:
     std::cout << "Draw" << std::endl;
@@ -47,10 +49,12 @@ bool Game::next_move() {
 
     Move move = current_player_ -> get_move(board_);
     std::cout << (current_player_ -> color() == white ? "White" : "Black") << "'s turn" << std::endl;
+    std::cout << move << std::endl;
 
     if (!board_.apply_move(move)) {
-      std::cerr << "Move unsuccessfull" << std::endl;
-      //print move
+      if (!move.is_no_move()) {
+        std::cerr << "Move unsuccessfull" << std::endl;
+      }
       return false;
     }
 
