@@ -66,6 +66,15 @@ tile Board::won() const {
     return black;
   }
 
+  for (int i = 0; i < BOARDSIZE; ++i) {
+    if (is_white(0, i)) {
+      return white;
+    }
+    if (is_black(BOARDSIZE - 1, i)) {
+      return black;
+    }
+  }
+
   return none;
 }
 
@@ -103,7 +112,7 @@ bool Board::apply_move(Move move) {
     tiles_[from.first][from.second] = none;
     tiles_[from.first][to.second] = none;
   } else {
-    tiles_[to.first][to.second] = tiles_[from.first][to.second];
+    tiles_[to.first][to.second] = tiles_[from.first][from.second];
     tiles_[from.first][from.second] = none;
     if (move.is_en_passant()) {
       tiles_[(to.first + from.first) / 2][to.second] = en_pass;
@@ -118,7 +127,11 @@ bool Board::is_valid_move(Move move) {
   pair_ii to = move.get_to();
   tile player = move.get_player();
 
-  std::cout << "from " << from.first << ' ' << from.second << " to " << to.first << ' ' << to.second << std::endl;
+  if (move.is_no_move()) {
+    return false;
+  }
+
+  //std::cout << "from " << from.first << ' ' << from.second << " to " << to.first << ' ' << to.second << std::endl;
   int direction = player == black ? BLACKDIR : WHITEDIR;
   if (!move.is_capture() && !move.is_en_passant()) {       // normal fwd move
     return ((from.second == to.second)
@@ -132,6 +145,7 @@ bool Board::is_valid_move(Move move) {
             && (tiles_[from.first][from.second] == player)
             && (tiles_[to.first][to.second] == none)
             && (tiles_[from.first + direction][from.second] == none)
+            && ( ((player == black) && (from.first == 1)) || ((player == white) && (from.first == 6)) )
            );
   } else if (move.is_capture() && !move.is_en_passant()) {   //capture, no en_pass
     return ((abs(from.second - to.second) == 1)
