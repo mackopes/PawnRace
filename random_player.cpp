@@ -1,6 +1,6 @@
 #include "random_player.h"
 
-#define ENUMEND capt_l
+#define ENUMEND captpass_l
 #define ENUMSTART fwd
 
 Random_Player :: Random_Player(tile color) : Player(color) {
@@ -70,6 +70,16 @@ std::vector <Move> Random_Player :: get_all_possible_moves(std::vector<unsigned 
         case capt_l: {
           unsigned long long orig_pos = (color() == black ? pos >> 9 : pos << 9);
           mv.push_back(Move(color(), bits_to_coor(orig_pos), bits_to_coor(pos), true, false));
+        }
+        break;
+        case captpass_r: {
+          unsigned long long orig_pos = (color() == black ? pos >> 7 : pos << 7);
+          mv.push_back(Move(color(), bits_to_coor(orig_pos), bits_to_coor(pos), true, true));
+        }
+        break;
+        case captpass_l: {
+          unsigned long long orig_pos = (color() == black ? pos >> 9 : pos << 9);
+          mv.push_back(Move(color(), bits_to_coor(orig_pos), bits_to_coor(pos), true, true));
         }
         break;
         default:
