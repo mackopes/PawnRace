@@ -13,8 +13,7 @@
 #include "utility.h"
 #include "move.h"
 #include "board.h"
-#include "player.h"
-#include "random_player.h"
+#include "players/player.h"
 
 typedef std::pair<int, int> pair_ii;
 

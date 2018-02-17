@@ -5,7 +5,8 @@
 //project includes
 #include "board.h"
 #include "general_header.h"
-#include "random_player.h"
+#include "players/random_player.h"
+#include "players/human_player.h"
 #include "game.h"
 
 //using
@@ -25,7 +26,7 @@ int main() {
   cout << b << endl;*/
 
   Random_Player white_player = Random_Player(white);
-  Random_Player black_player = Random_Player(black);
+  Human_Player black_player = Human_Player(black);
   Game game = Game(&white_player, &black_player);
   game.start();
 }
