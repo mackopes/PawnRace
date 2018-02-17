@@ -20,8 +20,9 @@ players
    ✔ en passant capture @done (17-02-18 22:19)
  ☐ print player ??
  ☐ other players
-   ☐ human player
+   ✔ human player @done (17-02-18 23:26)
    ☐ more to come (WOW!)
+ ☐ repeat move
 
 optimisations
  ☐ faster rev_bites
