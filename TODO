@@ -31,4 +31,4 @@ move
  ☐ return null instead of move with no_move set?
 
  board
- ☐ get winner
+ ✔ get winner @done (17-02-18 21:50)
