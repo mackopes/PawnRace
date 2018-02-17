@@ -4,9 +4,9 @@
 //libs includes
 
 //project includes
-#include "board.h"
-#include "tile.h"
-#include "move.h"
+#include "../board.h"
+#include "../tile.h"
+#include "../move.h"
 
 class Player {
  private:
