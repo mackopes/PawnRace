@@ -108,7 +108,7 @@ bool Board::apply_move(Move move) {
         : tiles_[WHITEROW + WHITEDIR][i];
   }
   if (move.is_capture() && move.is_en_passant()) {
-    tiles_[to.first][to.second] = tiles_[from.first][to.second];
+    tiles_[to.first][to.second] = tiles_[from.first][from.second];
     tiles_[from.first][from.second] = none;
     tiles_[from.first][to.second] = none;
   } else {
