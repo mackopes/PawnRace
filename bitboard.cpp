@@ -22,6 +22,14 @@ unsigned long long move_capt_l_helper(unsigned long long attacker, unsigned long
   return ( (attacker << 9) & (deffender & (~0x0101010101010101UL)) ); //9 is left
 }
 
+unsigned long long move_capt_pass_r_helper(unsigned long long attacker, unsigned long long deffender, unsigned long long en_pass) {
+  return ( (attacker << 7) & (en_pass & (~0x8080808080808080UL)));
+}
+
+unsigned long long move_capt_pass_l_helper(unsigned long long attacker, unsigned long long deffender, unsigned long long en_pass) {
+  return ( (attacker << 9) & (en_pass & (~0x0101010101010101UL)));
+}
+
 unsigned long long move_empty_helper(unsigned long long attacker, unsigned long long deffender, unsigned long long en_pass) {
   return 0L; //empty
 }
@@ -52,6 +60,12 @@ unsigned long long allmoves(unsigned long long bl, unsigned long long wh, unsign
     break;
   case capt_l:
     move_function = &move_capt_l_helper;
+    break;
+  case captpass_r:
+    move_function = &move_capt_pass_r_helper;
+    break;
+  case captpass_l:
+    move_function = &move_capt_pass_l_helper;
     break;
   default:
     std::cerr << "unkown move in function allmoves" << std::endl;
