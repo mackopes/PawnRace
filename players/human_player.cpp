@@ -4,6 +4,7 @@
 #define ENUMSTART fwd
 
 Human_Player :: Human_Player(tile color) : Player(color) {
+  repeat_move = true;
 }
 
 Move Human_Player :: get_move(Board board) {

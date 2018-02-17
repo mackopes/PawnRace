@@ -41,6 +41,8 @@ void Game::start() {
 
 bool Game::next_move() {
   if (board_.won() == none) {
+    Move dummy = Move(en_pass, std::make_pair(-1, -1), std::make_pair(-1, -1), true, true, true);
+
 
     //print board
     std::cout << board_ << std::endl;
@@ -48,15 +50,26 @@ bool Game::next_move() {
 
 
     Move move = current_player_ -> get_move(board_);
+
+    if (current_player_ -> get_repeat()) {
+      while (!board_.apply_move(move)) {
+        if (move.is_no_move()) {
+          std::cout << "No more moves" << std::endl;
+          return false;
+        }
+        move = current_player_ -> get_move(board_);
+      }
+    } else {
+      if (!board_.apply_move(move)) {
+        if (!move.is_no_move()) {
+          std::cerr << "Move unsuccessfull" << std::endl;
+        }
+        return false;
+      }
+    }
     std::cout << (current_player_ -> color() == white ? "White" : "Black") << "'s turn" << std::endl;
     std::cout << move << std::endl;
 
-    if (!board_.apply_move(move)) {
-      if (!move.is_no_move()) {
-        std::cerr << "Move unsuccessfull" << std::endl;
-      }
-      return false;
-    }
 
     //switch player
     current_player_ = current_player_ == white_player_ ? black_player_ : white_player_;
