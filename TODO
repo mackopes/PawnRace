@@ -9,15 +9,15 @@ main
 
 bitboard functions
  ✔ make unsigned long longs out of board @done (08-02-18 23:59)
- ☐ simulate moves
+ ✔ simulate moves @done (17-02-18 22:19)
    ✔ fwd @done (09-02-18 21:21)
    ✔ 2 fwd @done (11-02-18 23:15)
    ✔ pass @done (11-02-18 23:15)
-   ☐ en passant pass
+   ✔ en passant pass @done (17-02-18 22:19)
 
 players
- ☐ random player
-   ☐ en passant capture
+ ✔ random player @done (17-02-18 22:19)
+   ✔ en passant capture @done (17-02-18 22:19)
  ☐ print player ??
  ☐ other players
    ☐ human player
