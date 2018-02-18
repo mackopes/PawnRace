@@ -2,6 +2,11 @@ game
  ✔ get move from player, and make move @done (11-02-18 00:13)
  ☐ remember all moves
  ✔ constructors @done (10-02-18 21:37)
+ ☐ gamestats
+   ☐ winner
+   ☐ number of moves
+   ☐ number of pawns after every move
+   ☐ graphs?
 
 
 main
@@ -19,9 +24,13 @@ players
  ✔ random player @done (17-02-18 22:19)
    ✔ en passant capture @done (17-02-18 22:19)
  ☐ print player ??
- ☐ other players
-   ✔ human player @done (17-02-18 23:26)
-   ☐ more to come (WOW!)
+ ☐ minimax AI general
+   ☐ basic minimax
+   ☐ alpha-beta pruning
+   ☐ board hashing
+   ☐ iterative deepening on timer
+   ☐ multithreaded
+   ☐ minimax AI with genetic values - inherit
  ✔ repeat move @done (17-02-18 23:46)
 
 optimisations
