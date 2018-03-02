@@ -117,5 +117,5 @@ void getll(unsigned long long & white, unsigned long long & black, unsigned long
 }
 
 bool has_ended(unsigned long long attacker, unsigned long long deffender) {
-  return (attacker == 0 || deffender == 0 || attacker & 0xF0000000 || deffender & 0xF);
+  return (attacker == 0 || deffender == 0 || attacker & 0xFF00000000000000L || deffender & 0xFFL);
 }

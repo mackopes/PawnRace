@@ -2,13 +2,14 @@
 
 #define ALPHA 0
 #define BETA 0
+#define MAXDEPTH 6
 
 Minimax_Player :: Minimax_Player(tile color) : Player(color) {
   //empty
 }
 
 Move Minimax_Player :: get_move(Board board) {
-  unsigned long long w, b, ep;
+  ll w, b, ep;
 
   //convert the board to longlongs
   //void getll(unsigned long long & w, unsigned long long & b, unsigned long long & ep, Board board);
@@ -19,10 +20,10 @@ Move Minimax_Player :: get_move(Board board) {
   ll alpha = ALPHA, beta = BETA;
   if (color() == black) {
     /* start minimax without swapping the b/w players */
-    std::cout << minimax(b, w, ep, ALPHA, BETA, best_move, 0, 6, 0) << std::endl;
+    std::cout << minimax(b, w, ep, ALPHA, BETA, best_move, 0, MAXDEPTH, 0) << std::endl;
   } else {
     /* start minimax with swapping the b/w players */
-    std::cout << minimax(rev_bites(w), rev_bites(b), rev_bites(ep), ALPHA, BETA, best_move, 0, 7, 0) << std::endl;
+    std::cout << minimax(rev_bites(w), rev_bites(b), rev_bites(ep), ALPHA, BETA, best_move, 0, MAXDEPTH, 0) << std::endl;
   }
 
   return best_move;
@@ -31,15 +32,27 @@ Move Minimax_Player :: get_move(Board board) {
 double Minimax_Player :: eval(ll attacker, ll deffender) {
   double att = 0;
   double def = 0;
-
+  int multiplier = 1;
+  int rowcount = 0;
   while (attacker > 0) {
-    att += (attacker & 1);
+    att += (attacker & 1)*multiplier;
     attacker = attacker >> 1;
+    if(++rowcount >= 7) {
+      multiplier++;
+      rowcount = 0;
+    }
   }
 
+  multiplier = 8;
+  rowcount = 0;
   while (deffender > 0) {
-    def += (deffender & 1);
+    def += (deffender & 1)*multiplier;
     deffender = deffender >> 1;
+    rowcount++;
+    if(rowcount >= 7){
+      multiplier--;
+      rowcount = 0;
+    }
   }
 
   return att / def;
@@ -52,6 +65,9 @@ double Minimax_Player :: minimax_helper(ll attacker, ll deffender, ll ep, double
   ll new_att, new_def, new_ep, buff;
 
   moves = allmoves(attacker, deffender, ep, mov);
+  //if(current_depth == 0) {
+  //  std::cout << bites(moves) << std::endl;
+  //}
   for (int i = 0; i < 64; ++i) {
     buff = moves & (1UL << i);
     if (buff) {
@@ -101,9 +117,14 @@ double Minimax_Player :: minimax_helper(ll attacker, ll deffender, ll ep, double
  */
 double Minimax_Player :: minimax(ll attacker, ll deffender, ll ep, double alpha, double beta, Move & best_move, int current_depth, int max_depth, double carry) {
   if (current_depth >= max_depth || has_ended(attacker, deffender)) {
-    return eval(attacker, deffender);
+    if(current_depth % 2) {
+      return -eval(attacker, deffender);
+    } else {
+      return eval(attacker, deffender);
+    }
   }
-
+  
+  //std:: cout << "depth: " << current_depth << std::endl;
   double best_score = DBLMIN;
   ll bm;
 
@@ -111,7 +132,6 @@ double Minimax_Player :: minimax(ll attacker, ll deffender, ll ep, double alpha,
   for (movetype m : {fwd, capt_r, capt_l}) {
     bs = minimax_helper(attacker, deffender, ep, alpha, beta, bm, current_depth, max_depth, carry, m);
     if (bs > best_score) {
-      std :: cout << "macka\n";
       ll orig_pos;
       if (color() == white) {
         bm = rev_bites(bm);
@@ -134,5 +154,5 @@ double Minimax_Player :: minimax(ll attacker, ll deffender, ll ep, double alpha,
     }
   }
 
-  return best_score;
+  return -best_score;
 }
