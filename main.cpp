@@ -7,6 +7,7 @@
 #include "general_header.h"
 #include "players/random_player.h"
 #include "players/human_player.h"
+#include "players/minimax_player.h"
 #include "game.h"
 
 //using
@@ -26,7 +27,9 @@ int main() {
   cout << b << endl;*/
 
   Random_Player white_player = Random_Player(white);
-  Human_Player black_player = Human_Player(black);
+  //Random_Player black_player = Random_Player(black);
+  //Human_Player black_player = Human_Player(black);
+  Minimax_Player black_player = Minimax_Player(black);
   Game game = Game(&white_player, &black_player);
   game.start();
 }

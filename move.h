@@ -21,6 +21,7 @@ class Move {
   bool no_move_;
  public:
   //no move is move returned when there are no more valid moves
+  Move();
   Move(tile player, pair_ii from, pair_ii to, bool capture, bool en_passant, bool no_move = false);
   bool is_capture() const { return capture_; }
   bool is_en_passant() const { return en_passant_; }

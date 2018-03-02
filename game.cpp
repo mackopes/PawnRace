@@ -62,7 +62,10 @@ bool Game::next_move() {
     } else {
       if (!board_.apply_move(move)) {
         if (!move.is_no_move()) {
+          std::cerr << move << std:: endl;
           std::cerr << "Move unsuccessfull" << std::endl;
+        } else {
+          std::cout << "No more moves" << std::endl;
         }
         return false;
       }

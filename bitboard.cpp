@@ -34,7 +34,8 @@ unsigned long long move_empty_helper(unsigned long long attacker, unsigned long 
   return 0L; //empty
 }
 
-unsigned long long rev_bites(unsigned long long side) {  //may be faster
+//public functions
+unsigned long long rev_bites(unsigned long long side) {  //can be made faster
   unsigned long long output = side;
   for (int i = sizeof(side) * 8 - 1; i; --i) {
     output <<= 1L;
@@ -43,8 +44,6 @@ unsigned long long rev_bites(unsigned long long side) {  //may be faster
   }
   return output;
 }
-
-//public functions
 
 unsigned long long allmoves(unsigned long long bl, unsigned long long wh, unsigned long long ep, tile player, movetype mov) {
   unsigned long long (*move_function)(unsigned long long, unsigned long long, unsigned long long);
@@ -82,6 +81,11 @@ unsigned long long allmoves(unsigned long long bl, unsigned long long wh, unsign
   }
 }
 
+/* allmoves function with attacker and deffender, where attacker is always black player */
+unsigned long long allmoves(unsigned long long attacker, unsigned long long deffender, unsigned long long ep, movetype mov) {
+  return allmoves(attacker, deffender, ep, black, mov);
+}
+
 unsigned long long coor_to_bits(int i, int j) {
   return (1L << (i * 8 + j));
 }
@@ -95,8 +99,6 @@ pair_ii bits_to_coor(unsigned long long a) {
   }
 
 }
-
-
 
 void getll(unsigned long long & white, unsigned long long & black, unsigned long long & en_pass, Board board) {
   white = black = en_pass = 0;
@@ -112,4 +114,8 @@ void getll(unsigned long long & white, unsigned long long & black, unsigned long
       }
     }
   }
+}
+
+bool has_ended(unsigned long long attacker, unsigned long long deffender) {
+  return (attacker == 0 || deffender == 0 || attacker & 0xF0000000 || deffender & 0xF);
 }
