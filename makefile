@@ -1,4 +1,4 @@
-CC=$(CC)
+CC=g++ -std=c++14
 FLAGS=-Wall
 PLAYERS=random_player.cpp human_player.cpp minimax_player.cpp
 SOURCES=main.cpp move.cpp game.cpp bitboard.cpp board.cpp utility.cpp \

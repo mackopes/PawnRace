@@ -137,19 +137,21 @@ double Minimax_Player :: minimax(ll attacker, ll deffender, ll ep, double alpha,
         bm = rev_bites(bm);
       }
       switch (m) {
-      case fwd:
-        orig_pos = (color() == black ? bm >> 8 : bm << 8);
-        best_move = Move(color(), bits_to_coor(orig_pos), bits_to_coor(bm), false, false);
-        break;
-      case capt_r:
-        orig_pos = (color() == black ? bm >> 7 : bm << 7);
-        best_move = Move(color(), bits_to_coor(orig_pos), bits_to_coor(bm), true, false);
-        break;
-      case capt_l:
-        orig_pos = (color() == black ? bm >> 9 : bm << 9);
-        best_move = Move(color(), bits_to_coor(orig_pos), bits_to_coor(bm), true, false);
-        break;
-      }
+        case fwd:
+          orig_pos = (color() == black ? bm >> 8 : bm << 8);
+          best_move = Move(color(), bits_to_coor(orig_pos), bits_to_coor(bm), false, false);
+          break;
+        case capt_r:
+          orig_pos = (color() == black ? bm >> 7 : bm << 7);
+          best_move = Move(color(), bits_to_coor(orig_pos), bits_to_coor(bm), true, false);
+          break;
+        case capt_l:
+          orig_pos = (color() == black ? bm >> 9 : bm << 9);
+          best_move = Move(color(), bits_to_coor(orig_pos), bits_to_coor(bm), true, false);
+          break;
+        default:
+          break;
+        }
       best_score = bs;
     }
   }

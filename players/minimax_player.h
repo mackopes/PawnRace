@@ -1,5 +1,5 @@
 #ifndef MINIMAXPLAYER_H
-#define MINIMAXLAYER_H
+#define MINIMAXPLAYER_H
 
 //libs includes
 #include <vector>

@@ -161,4 +161,6 @@ bool Board::is_valid_move(Move move) {
             && (tiles_[from.first][to.second] == get_opposite_player(player))
            );
   }
+
+  return false;
 }

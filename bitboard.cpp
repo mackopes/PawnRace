@@ -97,7 +97,7 @@ pair_ii bits_to_coor(unsigned long long a) {
       break;
     }
   }
-
+  //throw exception
 }
 
 void getll(unsigned long long & white, unsigned long long & black, unsigned long long & en_pass, Board board) {
