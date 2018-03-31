@@ -17,13 +17,15 @@
 
 #define ll unsigned long long
 #define DBLMIN std::numeric_limits<double>::lowest()
-#define DBLMAX std::numeric_limits<double>::max();
+#define DBLMAX std::numeric_limits<double>::max()
 
 class Minimax_Player : public Player {
  private:
-  double minimax(ll attacker, ll deffender, ll ep, double alpha, double beta, Move & best_move, int current_depth, int max_depth, double carry);
-  double minimax_helper(ll attacker, ll deffender, ll ep, double alpha, double beta, ll & best_move, int current_depth, int max_depth, double carry, movetype mov);
-  double eval(ll attacker, ll deffender);
+  double minimax(ll attacker, ll deffender, ll ep, double alpha, double beta, Move & best_move, int current_depth, int max_depth, bool maximizing, double carry);
+  double minimax_helper(ll attacker, ll deffender, ll ep, double alpha, double beta, ll & best_move, int current_depth, int max_depth, bool maximizing, double carry, movetype mov);
+  double eval(ll attacker, ll deffender, bool maximizing);
+  static bool is_greater(double a, double b);
+  static bool is_smaller(double a, double b);
  public:
   Minimax_Player(tile color);
   Move get_move(Board board);

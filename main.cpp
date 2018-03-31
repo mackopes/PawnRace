@@ -27,9 +27,23 @@ int main() {
   cout << b << endl;*/
 
   Random_Player white_player = Random_Player(white);
+  // Minimax_Player white_player = Minimax_Player(white);
   //Random_Player black_player = Random_Player(black);
   //Human_Player black_player = Human_Player(black);
   Minimax_Player black_player = Minimax_Player(black);
-  Game game = Game(&white_player, &black_player);
-  game.start();
+  int w = 0, b = 0;
+  for (int i = 0; i < 50; ++i)
+  {
+    Game game = Game(&white_player, &black_player);
+    game.start();
+    if (game.get_winner() == black)
+    {
+      b++;
+    } else if(game.get_winner() == white) {
+      w++;
+    }
+  }
+
+  cout << "White: " << w << endl;
+  cout << "Black: " << b << endl;
 }

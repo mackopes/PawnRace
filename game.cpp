@@ -82,3 +82,7 @@ bool Game::next_move() {
     return false;
   }
 }
+
+tile Game::get_winner() {
+  return board_.won();
+}

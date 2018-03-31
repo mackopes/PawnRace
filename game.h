@@ -30,7 +30,7 @@ class Game {
   Game(Player * white_player, Player * black_player);
   void start();
   bool next_move();
-
+  tile get_winner();
 };
 
 #endif
