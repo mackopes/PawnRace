@@ -32,9 +32,9 @@ int main() {
   //Human_Player black_player = Human_Player(black);
   Minimax_Player black_player = Minimax_Player(black);
   int w = 0, b = 0;
-  for (int i = 0; i < 50; ++i)
+  for (int i = 0; i < 30; ++i)
   {
-    Game game = Game(&white_player, &black_player);
+    Game game = Game(2, 4, &white_player, &black_player);
     game.start();
     if (game.get_winner() == black)
     {
