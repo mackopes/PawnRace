@@ -45,7 +45,7 @@ bool Game::next_move() {
 
 
     //print board
-    //std::cout << board_ << std::endl;
+    std::cout << board_ << std::endl;
     // print player
 
 

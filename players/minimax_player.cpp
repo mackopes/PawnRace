@@ -65,6 +65,29 @@ Move Minimax_Player :: minimax(ll attacker, ll deffender, ll ep) {
   return m;
 }
 
+void Minimax_Player :: get_next_position(movetype movtp, ll move, ll attacker, ll deffender, ll ep, ll & new_att, ll & new_def, ll & new_ep) {
+  switch (movtp) {
+    case fwd:
+      new_att = (attacker | move) & (~(move >> 8));
+      new_def = deffender;
+      new_ep = 0;
+      break;
+    case capt_r:
+      new_att = (attacker | move) & (~(move >> 7));
+      new_def = (deffender & (~move));
+      new_ep = 0;
+      break;
+    case capt_l:
+      new_att = (attacker | move) & (~(move >> 9));
+      new_def = (deffender & (~move));
+      new_ep = 0;
+      break;
+    default:
+      std :: cout << "unknown move!" << std :: endl;
+      break;
+    }
+}
+
 Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_depth) {
   //initialize alpha and beta
   double alpha = DBLMIN;
@@ -83,26 +106,7 @@ Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_d
       ll new_att, new_def, new_ep;
       if (buff) {
         //get new positions of attacker and deffender after the move made
-        switch (move) {
-        case fwd:
-          new_att = (attacker | buff) & (~(buff >> 8));
-          new_def = deffender;
-          new_ep = 0;
-          break;
-        case capt_r:
-          new_att = (attacker | buff) & (~(buff >> 7));
-          new_def = (deffender & (~buff));
-          new_ep = 0;
-          break;
-        case capt_l:
-          new_att = (attacker | buff) & (~(buff >> 9));
-          new_def = (deffender & (~buff));
-          new_ep = 0;
-          break;
-        default:
-          std :: cout << "unknown move!" << std :: endl;
-          break;
-        }
+        get_next_position(move, buff, attacker, deffender, ep, new_att, new_def, new_ep);
 
         //after determining new attacker and deffender positions, we can go further in recursion
         //we are looking for a MAXIMUM in minimizing
@@ -171,26 +175,7 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
         //move was made
         move_made = true;
         //get new positions of attacker and deffender after the move made
-        switch (move) {
-        case fwd:
-          new_att = (attacker | buff) & (~(buff >> 8));
-          new_def = deffender;
-          new_ep = 0;
-          break;
-        case capt_r:
-          new_att = (attacker | buff) & (~(buff >> 7));
-          new_def = (deffender & (~buff));
-          new_ep = 0;
-          break;
-        case capt_l:
-          new_att = (attacker | buff) & (~(buff >> 9));
-          new_def = (deffender & (~buff));
-          new_ep = 0;
-          break;
-        default:
-          std :: cout << "unknown move!" << std :: endl;
-          break;
-        }
+        get_next_position(move, buff, attacker, deffender, ep, new_att, new_def, new_ep);
 
         //after determining new attacker and deffender positions, we can go further in recursion
         //we are looking for a MAXIMUM in minimizing
@@ -246,26 +231,7 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
         //move was made
         move_made = true;
         //get new positions of attacker and deffender after the move made
-        switch (move) {
-        case fwd:
-          new_att = (attacker | buff) & (~(buff >> 8));
-          new_def = deffender;
-          new_ep = 0;
-          break;
-        case capt_r:
-          new_att = (attacker | buff) & (~(buff >> 7));
-          new_def = (deffender & (~buff));
-          new_ep = 0;
-          break;
-        case capt_l:
-          new_att = (attacker | buff) & (~(buff >> 9));
-          new_def = (deffender & (~buff));
-          new_ep = 0;
-          break;
-        default:
-          std :: cout << "unknown move!" << std :: endl;
-          break;
-        }
+        get_next_position(move, buff, attacker, deffender, ep, new_att, new_def, new_ep);
         
         //after determining new attacker and deffender positions, we can go further in recursion
         //we are looking for a MINIMUM in maximizing

@@ -35,6 +35,7 @@ class Minimax_Player : public Player {
   double eval_positions(ll attacker, ll deffender);
   void set_timer();
   bool timeout();
+  void get_next_position(movetype movtp, ll move, ll attacker, ll deffender, ll ep, ll & new_att, ll & new_def, ll & new_ep);
  public:
   Minimax_Player(tile color);
   Minimax_Player(tile color, long max_time);
