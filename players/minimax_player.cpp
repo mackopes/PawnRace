@@ -2,7 +2,7 @@
 
 #define MAXDEPTH 9
 #define STARTDEPTH 4
-#define ALLOWEDMOVES {fwd, capt_r, capt_l}
+#define ALLOWEDMOVES {fwd, capt_r, capt_l, ffwd}
 #define DRAW_SCORE 0.5
 
 using std::max;
@@ -81,8 +81,34 @@ void Minimax_Player :: get_next_position(movetype movtp, ll move, ll attacker, l
     new_def = (deffender & (~move));
     new_ep = 0;
     break;
+  case ffwd:
+    new_att = (attacker | move) & (~(move >> 16));
+    new_def = deffender;
+    new_ep = move >> 8;
+    break;
   default:
     std :: cout << "unknown move!" << std :: endl;
+    break;
+  }
+}
+
+Move Minimax_Player :: get_move_from_ll(ll move, movetype movtp) {
+  switch (movtp) {
+  case fwd:
+    return Move(color(), bits_to_coor(move >> 8), bits_to_coor(move), false, false);
+    break;
+  case capt_r:
+    return Move(color(), bits_to_coor(move >> 7), bits_to_coor(move), true, false);
+    break;
+  case capt_l:
+    return Move(color(), bits_to_coor(move >> 9), bits_to_coor(move), true, false);
+    break;
+  case ffwd:
+    return Move(color(), bits_to_coor(move >> 16), bits_to_coor(move), false, true);
+    break;
+  default:
+    std::cerr << "unknown move in get_move_from_ll\n";
+    return Move();
     break;
   }
 }
@@ -114,20 +140,7 @@ Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_d
         //update best_score and alpha
         if (bs > best_score) {
           best_score = bs;
-          //Move(tile player, pair_ii from, pair_ii to, bool capture, bool en_passant, bool no_move = false);
-          switch (move) {
-          case fwd:
-            best_move = Move(color(), bits_to_coor(buff >> 8), bits_to_coor(buff), false, false);
-            break;
-          case capt_r:
-            best_move = Move(color(), bits_to_coor(buff >> 7), bits_to_coor(buff), true, false);
-            break;
-          case capt_l:
-            best_move = Move(color(), bits_to_coor(buff >> 9), bits_to_coor(buff), true, false);
-            break;
-          default:
-            break;
-          }
+          best_move = get_move_from_ll(buff, move);
         }
         alpha = max(alpha, best_score);
         //alpha-beta cutoff
