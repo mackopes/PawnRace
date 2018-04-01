@@ -26,7 +26,6 @@ Move Minimax_Player :: get_move(Board board) {
   //convert the board to longlongs
   //void getll(unsigned long long & w, unsigned long long & b, unsigned long long & ep, Board board);
   getll(w, b, ep, board);
-
   //double minimax(ll attacker, ll deffender, ll ep, double & alpha, double & beta, ll & best_move, int current_depth, int max_depth, double carry)
   Move best_move;
   if (color() == black) {

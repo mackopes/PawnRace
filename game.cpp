@@ -48,9 +48,7 @@ bool Game::next_move() {
     std::cout << board_ << std::endl;
     // print player
 
-
     Move move = current_player_ -> get_move(board_);
-
     if (current_player_ -> get_repeat()) {
       while (!board_.apply_move(move)) {
         if (move.is_no_move()) {
