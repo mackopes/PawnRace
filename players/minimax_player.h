@@ -7,6 +7,7 @@
 #include <sys/time.h>
 #include <limits>
 #include <cmath>
+#include <ctime>
 
 //project includes
 // #include "board.h"
@@ -22,16 +23,21 @@
 
 class Minimax_Player : public Player {
  private:
-  //double minimax(ll attacker, ll deffender, ll ep, double alpha, double beta, Move & best_move, int current_depth, int max_depth, bool maximizing, double carry);
-  //double minimax_helper(ll attacker, ll deffender, ll ep, double alpha, double beta, ll & best_move, int current_depth, int max_depth, bool maximizing, double carry, movetype mov);
+  long max_time_;
+  std::clock_t start_time_;
+  bool timeout_flag_;
+
   Move minimax(ll attacker, ll deffender, ll ep);
   double alphabeta_maximizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta);
   double alphabeta_minimizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta);
   Move minimax_start(ll attacker, ll deffender, ll ep, int max_depth);
   double eval(ll attacker, ll deffender);
   double eval_positions(ll attacker, ll deffender);
+  void set_timer();
+  bool timeout();
  public:
   Minimax_Player(tile color);
+  Minimax_Player(tile color, long max_time);
   Move get_move(Board board);
 };
 

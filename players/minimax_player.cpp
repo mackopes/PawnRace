@@ -1,13 +1,22 @@
 #include "minimax_player.h"
 
-#define MAXDEPTH 8
-#define ALLOWEDMOVES {fwd}
+#define MAXDEPTH 9
+#define STARTDEPTH 4
+#define ALLOWEDMOVES {fwd, capt_r, capt_l}
 
 using std::max;
 using std::min;
 
 Minimax_Player :: Minimax_Player(tile color) : Player(color) {
-  //empty
+  max_time_ = 5000;
+  start_time_ = std::clock();
+  timeout_flag_ = false;
+}
+
+Minimax_Player :: Minimax_Player(tile color, long max_time) : Player(color) {
+  max_time_ = max_time;
+  start_time_ = std::clock();
+  timeout_flag_ = false;
 }
 
 Move Minimax_Player :: get_move(Board board) {
@@ -28,12 +37,31 @@ Move Minimax_Player :: get_move(Board board) {
   }
 }
 
+void Minimax_Player :: set_timer() {
+  start_time_ = std::clock();
+}
 
-/* NOT FINISHED
- * TODO: iterative deepening based on time
- */
+bool Minimax_Player :: timeout() {
+  return (1000.0 * (std::clock() - start_time_) / CLOCKS_PER_SEC) >= max_time_;
+}
+
 Move Minimax_Player :: minimax(ll attacker, ll deffender, ll ep) {
-  return minimax_start(attacker, deffender, ep, MAXDEPTH);
+  int depth = STARTDEPTH;
+  Move m;
+  timeout_flag_ = false;
+  set_timer();
+  while(!timeout()) {
+    Move m_ = minimax_start(attacker, deffender, ep, depth);
+    if (!timeout_flag_)
+    {
+      m = m_;
+      depth++;
+    }
+  }
+
+  std::cout << "depth reached: " << depth << std::endl;
+
+  return m;
 }
 
 Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_depth) {
@@ -88,6 +116,12 @@ Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_d
             case fwd:
               best_move = Move(color(), bits_to_coor(buff >> 8), bits_to_coor(buff), false, false);
               break;
+            case capt_r:
+              best_move = Move(color(), bits_to_coor(buff >> 7), bits_to_coor(buff), true, false);
+              break;
+            case capt_l:
+              best_move = Move(color(), bits_to_coor(buff >> 9), bits_to_coor(buff), true, false);
+              break;
             default:
               break;
           }
@@ -105,12 +139,18 @@ Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_d
     }
   }
 
-  std::cout << best_score << std::endl;
+  // std::cout << best_score << std::endl;
   
   return best_move;
 }
 
 double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
+  if (timeout() || timeout_flag_)
+  {
+    timeout_flag_ = true;
+    return -1;
+  }
+
   if (cur_depth >= max_depth || has_ended(attacker, deffender)) {
     return eval(rev_bites(deffender), rev_bites(attacker));
   }
@@ -154,13 +194,13 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
         best_score = max(best_score, bs);
         alpha = max(alpha, best_score);
         //alpha-beta cutoff
-        if (beta < alpha) {
+        if (beta <= alpha) {
           break;
         }
       }
     }
     //alpha-beta cutoff again
-    if (beta < alpha) {
+    if (beta <= alpha) {
       break;
     }
   }
@@ -169,6 +209,12 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
 }
 
 double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
+  if (timeout() || timeout_flag_)
+  {
+    timeout_flag_ = true;
+    return -1;
+  }
+
   if (cur_depth >= max_depth || has_ended(attacker, deffender)) {
     return eval(attacker, deffender);
   }
@@ -212,13 +258,13 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
         best_score = min(best_score, bs);
         beta = min(beta, best_score);
         //alpha-beta cutoff
-        if (beta < alpha) {
+        if (beta <= alpha) {
           break;
         }
       }
     }
     //alpha-beta cutoff again
-    if (beta < alpha) {
+    if (beta <= alpha) {
       break;
     }
   }
@@ -264,128 +310,5 @@ double Minimax_Player :: eval_positions(ll attacker, ll deffender) {
     }
   }
 
-  return def - att;
+  return def / att;
 }
-
-
-// double Minimax_Player :: minimax_helper(ll attacker, ll deffender, ll ep, double alpha, double beta, ll & best_move, int current_depth, int max_depth, bool maximizing, double carry, movetype mov) {
-//   ll moves;
-//   double best_score = maximizing ? DBLMIN : DBLMAX;
-//   bool move_made = false;
-//   ll new_att, new_def, new_ep, buff;
-
-//   bool (*cmp_fnction)(double, double) = (maximizing ? is_greater : is_smaller);
-
-//   moves = allmoves(attacker, deffender, ep, mov);
-//   for (int i = 0; i < 64; ++i) {
-//     buff = moves & (1UL << i);
-//     if (buff) {
-//       move_made = true;
-//       double bs;
-//       switch (mov) {
-//       case fwd:
-//         new_att = (attacker | buff) & (~(buff >> 8));
-//         new_def = deffender;
-//         new_ep = 0;
-//         break;
-//       case capt_r:
-//         new_att = (attacker | buff) & (~(buff >> 7));
-//         new_def = (deffender & (~buff));
-//         new_ep = 0;
-//         break;
-//       case capt_l:
-//         new_att = (attacker | buff) & (~(buff >> 9));
-//         new_def = (deffender & (~buff));
-//         new_ep = 0;
-//         break;
-//       default:
-//         std :: cout << "unknown move!" << std :: endl;
-//         break;
-//       }
-//       Move dummy;
-//       bs = minimax(rev_bites(new_def), rev_bites(new_att), new_ep, alpha, beta, dummy, current_depth + 1, max_depth, !maximizing, carry);
-//       if ((*cmp_fnction)(bs, best_score)) {
-//         best_score = bs;
-//         best_move = buff;
-
-//         if (maximizing) {
-//           alpha = std::max(alpha, bs);
-//         } else {
-//           beta = std::min(beta, bs);
-//         }
-
-//         if (beta <= alpha)
-//         {
-//           break;
-//         }
-//       }
-//     }
-//   }
-
-//   return best_score;
-// }
-
-// /*
-//  * attacker has to be moving like black player does (x-coordinate is increasing).
-//  * every level deeper attacker and deffender have to swap
-//  * best_move stores the best played move
-//  */
-// double Minimax_Player :: minimax(ll attacker, ll deffender, ll ep, double alpha, double beta, Move & best_move, int current_depth, int max_depth, bool maximizing, double carry) {
-//   if (current_depth >= max_depth || has_ended(attacker, deffender)) {
-//     return eval(attacker, deffender, maximizing);
-//   }
-  
-//   //std:: cout << "depth: " << current_depth << std::endl;
-//   double best_score = maximizing ? DBLMIN : DBLMAX;
-//   ll bm;
-
-//   double bs;
-//   bool (*cmp_fnction)(double, double) = (maximizing ? is_greater : is_smaller);
-//   for (movetype m : {fwd, capt_r, capt_l}) {
-//     bs = minimax_helper(attacker, deffender, ep, alpha, beta, bm, current_depth, max_depth, maximizing, carry, m);
-//     if (current_depth == 0)
-//     {
-//       std::cout << bs << std::endl;
-//     }
-//     if ((*cmp_fnction)(bs, best_score)) {
-//       ll orig_pos;
-//       //alpha-beta pruning
-//       if (color() == white) {
-//         bm = rev_bites(bm);
-//       }
-//       switch (m) {
-//         case fwd:
-//           // if (current_depth == 0) {
-//           //   std:: cout<< "fwdbs " << bs << std::endl;
-//           // }
-//           orig_pos = (color() == black ? bm >> 8 : bm << 8);
-//           best_move = Move(color(), bits_to_coor(orig_pos), bits_to_coor(bm), false, false);
-//           break;
-//         case capt_r:
-//           // if (current_depth ==0) {
-//           //   std :: cout << "capt_r " << bites(bm) << std::endl;
-//           // }
-//           // if (current_depth == 0) {
-//           //   std:: cout<< "rbs " << bs << std::endl;
-//           // }
-//           orig_pos = (color() == black ? bm >> 7 : bm << 7);
-//           best_move = Move(color(), bits_to_coor(orig_pos), bits_to_coor(bm), true, false);
-//           break;
-//         case capt_l:
-//           // if (current_depth == 0) {
-//           //   std :: cout << "capt_l " << bites(bm) << std::endl;
-//           // }
-//           // if (current_depth == 0) {
-//           //   std:: cout<< "lbs " << bs << std::endl;
-//           // }
-//           orig_pos = (color() == black ? bm >> 9 : bm << 9);
-//           best_move = Move(color(), bits_to_coor(orig_pos), bits_to_coor(bm), true, false);
-//           break;
-//         default:
-//           break;
-//         }
-//       best_score = bs;
-//     }
-//   }
-//   return best_score;
-// }

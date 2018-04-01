@@ -3,7 +3,7 @@ game
  ☐ remember all moves
  ✔ constructors @done (10-02-18 21:37)
  ☐ gamestats
-   ☐ winner
+   ✔ winner @done (18-04-01 16:36)
    ☐ number of moves
    ☐ number of pawns after every move
    ☐ graphs?
@@ -25,12 +25,13 @@ players
    ✔ en passant capture @done (17-02-18 22:19)
  ☐ print player ??
  ☐ minimax AI general
-   ☐ basic minimax
-   ☐ alpha-beta pruning
+   ✔ basic minimax @done (18-04-01 16:36)
+   ✔ alpha-beta pruning @done (18-04-01 16:36)
    ☐ board hashing
    ☐ iterative deepening on timer
    ☐ multithreaded
    ☐ minimax AI with genetic values - inherit
+   ☐ eval functions
  ✔ repeat move @done (17-02-18 23:46)
 
 optimisations
