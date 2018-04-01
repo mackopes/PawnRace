@@ -51,10 +51,9 @@ Move Minimax_Player :: minimax(ll attacker, ll deffender, ll ep) {
   Move m;
   timeout_flag_ = false;
   set_timer();
-  while(!timeout()) {
+  while (!timeout()) {
     Move m_ = minimax_start(attacker, deffender, ep, depth);
-    if (!timeout_flag_)
-    {
+    if (!timeout_flag_) {
       m = m_;
       depth++;
     }
@@ -67,25 +66,25 @@ Move Minimax_Player :: minimax(ll attacker, ll deffender, ll ep) {
 
 void Minimax_Player :: get_next_position(movetype movtp, ll move, ll attacker, ll deffender, ll ep, ll & new_att, ll & new_def, ll & new_ep) {
   switch (movtp) {
-    case fwd:
-      new_att = (attacker | move) & (~(move >> 8));
-      new_def = deffender;
-      new_ep = 0;
-      break;
-    case capt_r:
-      new_att = (attacker | move) & (~(move >> 7));
-      new_def = (deffender & (~move));
-      new_ep = 0;
-      break;
-    case capt_l:
-      new_att = (attacker | move) & (~(move >> 9));
-      new_def = (deffender & (~move));
-      new_ep = 0;
-      break;
-    default:
-      std :: cout << "unknown move!" << std :: endl;
-      break;
-    }
+  case fwd:
+    new_att = (attacker | move) & (~(move >> 8));
+    new_def = deffender;
+    new_ep = 0;
+    break;
+  case capt_r:
+    new_att = (attacker | move) & (~(move >> 7));
+    new_def = (deffender & (~move));
+    new_ep = 0;
+    break;
+  case capt_l:
+    new_att = (attacker | move) & (~(move >> 9));
+    new_def = (deffender & (~move));
+    new_ep = 0;
+    break;
+  default:
+    std :: cout << "unknown move!" << std :: endl;
+    break;
+  }
 }
 
 Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_depth) {
@@ -113,22 +112,21 @@ Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_d
         //now attacker is deffender and vice versa
         double bs = alphabeta_minimizing(rev_bites(new_def), rev_bites(new_att), rev_bites(new_ep), 1, max_depth, alpha, beta);
         //update best_score and alpha
-        if (bs > best_score)
-        {
+        if (bs > best_score) {
           best_score = bs;
           //Move(tile player, pair_ii from, pair_ii to, bool capture, bool en_passant, bool no_move = false);
           switch (move) {
-            case fwd:
-              best_move = Move(color(), bits_to_coor(buff >> 8), bits_to_coor(buff), false, false);
-              break;
-            case capt_r:
-              best_move = Move(color(), bits_to_coor(buff >> 7), bits_to_coor(buff), true, false);
-              break;
-            case capt_l:
-              best_move = Move(color(), bits_to_coor(buff >> 9), bits_to_coor(buff), true, false);
-              break;
-            default:
-              break;
+          case fwd:
+            best_move = Move(color(), bits_to_coor(buff >> 8), bits_to_coor(buff), false, false);
+            break;
+          case capt_r:
+            best_move = Move(color(), bits_to_coor(buff >> 7), bits_to_coor(buff), true, false);
+            break;
+          case capt_l:
+            best_move = Move(color(), bits_to_coor(buff >> 9), bits_to_coor(buff), true, false);
+            break;
+          default:
+            break;
           }
         }
         alpha = max(alpha, best_score);
@@ -145,13 +143,12 @@ Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_d
   }
 
   // std::cout << best_score << std::endl;
-  
+
   return best_move;
 }
 
 double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
-  if (timeout() || timeout_flag_)
-  {
+  if (timeout() || timeout_flag_) {
     timeout_flag_ = true;
     return -1;
   }
@@ -196,18 +193,16 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
     }
   }
 
-  if (move_made)
-  {
+  if (move_made) {
     return best_score;
   } else {
     return DRAW_SCORE; //draw; no more moves
   }
-  
+
 }
 
 double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
-  if (timeout() || timeout_flag_)
-  {
+  if (timeout() || timeout_flag_) {
     timeout_flag_ = true;
     return -1;
   }
@@ -232,7 +227,7 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
         move_made = true;
         //get new positions of attacker and deffender after the move made
         get_next_position(move, buff, attacker, deffender, ep, new_att, new_def, new_ep);
-        
+
         //after determining new attacker and deffender positions, we can go further in recursion
         //we are looking for a MINIMUM in maximizing
         //now attacker is deffender and vice versa
@@ -252,8 +247,7 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
     }
   }
 
-  if (move_made)
-  {
+  if (move_made) {
     return best_score;
   } else {
     return DRAW_SCORE; //draw; no more moves
@@ -271,12 +265,11 @@ double Minimax_Player :: eval_positions(ll attacker, ll deffender) {
   int multiplier = 1;
   int rowcount = 0;
   while (attacker > 0) {
-    att += (attacker & 1UL)*multiplier;
+    att += (attacker & 1UL) * multiplier;
     attacker = attacker >> 1;
-    if(++rowcount >= 7) {
+    if (++rowcount >= 7) {
       multiplier *= 2;
-      if (multiplier == 128)
-      {
+      if (multiplier == 128) {
         multiplier = 1024;
       }
       rowcount = 0;
@@ -286,12 +279,11 @@ double Minimax_Player :: eval_positions(ll attacker, ll deffender) {
   multiplier = 1024;
   rowcount = 0;
   while (deffender > 0) {
-    def += (deffender & 1UL)*multiplier;
+    def += (deffender & 1UL) * multiplier;
     deffender = deffender >> 1;
-    if(++rowcount >= 7){
+    if (++rowcount >= 7) {
       multiplier /= 2;
-      if (multiplier == 512)
-      {
+      if (multiplier == 512) {
         multiplier = 64;
       }
       rowcount = 0;
