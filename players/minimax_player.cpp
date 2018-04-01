@@ -102,30 +102,59 @@ void Minimax_Player :: get_next_position(movetype movtp, ll move, ll attacker, l
 }
 
 Move Minimax_Player :: get_move_from_ll(ll move, movetype movtp) {
-  switch (movtp) {
-  case fwd:
-    return Move(color(), bits_to_coor(move >> 8), bits_to_coor(move), false, false);
-    break;
-  case capt_r:
-    return Move(color(), bits_to_coor(move >> 7), bits_to_coor(move), true, false);
-    break;
-  case capt_l:
-    return Move(color(), bits_to_coor(move >> 9), bits_to_coor(move), true, false);
-    break;
-  case ffwd:
-    return Move(color(), bits_to_coor(move >> 16), bits_to_coor(move), false, true);
-    break;
-  case captpass_r:
-    return Move(color(), bits_to_coor(move >> 7), bits_to_coor(move), true, true);
-    break;
-  case captpass_l:
-    return Move(color(), bits_to_coor(move >> 9), bits_to_coor(move), true, true);
-    break;
-  default:
-    std::cerr << "unknown move in get_move_from_ll\n";
-    return Move();
-    break;
+  if (color() == black) {
+    switch (movtp) {
+    case fwd:
+      return Move(color(), bits_to_coor(move >> 8), bits_to_coor(move), false, false);
+      break;
+    case capt_r:
+      return Move(color(), bits_to_coor(move >> 7), bits_to_coor(move), true, false);
+      break;
+    case capt_l:
+      return Move(color(), bits_to_coor(move >> 9), bits_to_coor(move), true, false);
+      break;
+    case ffwd:
+      return Move(color(), bits_to_coor(move >> 16), bits_to_coor(move), false, true);
+      break;
+    case captpass_r:
+      return Move(color(), bits_to_coor(move >> 7), bits_to_coor(move), true, true);
+      break;
+    case captpass_l:
+      return Move(color(), bits_to_coor(move >> 9), bits_to_coor(move), true, true);
+      break;
+    default:
+      std::cerr << "unknown move in get_move_from_ll\n";
+      return Move();
+      break;
+    }
+  } else {
+    move = rev_bites(move);
+    switch (movtp) {
+    case fwd:
+      return Move(color(), bits_to_coor(move << 8), bits_to_coor(move), false, false);
+      break;
+    case capt_r:
+      return Move(color(), bits_to_coor(move << 7), bits_to_coor(move), true, false);
+      break;
+    case capt_l:
+      return Move(color(), bits_to_coor(move << 9), bits_to_coor(move), true, false);
+      break;
+    case ffwd:
+      return Move(color(), bits_to_coor(move << 16), bits_to_coor(move), false, true);
+      break;
+    case captpass_r:
+      return Move(color(), bits_to_coor(move << 7), bits_to_coor(move), true, true);
+      break;
+    case captpass_l:
+      return Move(color(), bits_to_coor(move << 9), bits_to_coor(move), true, true);
+      break;
+    default:
+      std::cerr << "unknown move in get_move_from_ll\n";
+      return Move();
+      break;
+    }
   }
+
 }
 
 Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_depth) {
