@@ -2,7 +2,7 @@
 
 #define MAXDEPTH 9
 #define STARTDEPTH 4
-#define ALLOWEDMOVES {capt_r, capt_l, fwd, ffwd}
+#define ALLOWEDMOVES {captpass_r, captpass_l, capt_r, capt_l, fwd, ffwd}
 #define DRAW_SCORE 0.5
 
 using std::max;
@@ -86,6 +86,16 @@ void Minimax_Player :: get_next_position(movetype movtp, ll move, ll attacker, l
     new_def = deffender;
     new_ep = move >> 8;
     break;
+  case captpass_r:
+    new_att = (attacker | move) & (~(move >> 7));
+    new_def = (deffender & (~(move << 8)));
+    new_ep = 0;
+    break;
+  case captpass_l:
+    new_att = (attacker | move) & (~(move >> 9));
+    new_def = (deffender & (~(move << 8)));
+    new_ep = 0;
+    break;
   default:
     std :: cout << "unknown move!" << std :: endl;
     break;
@@ -105,6 +115,12 @@ Move Minimax_Player :: get_move_from_ll(ll move, movetype movtp) {
     break;
   case ffwd:
     return Move(color(), bits_to_coor(move >> 16), bits_to_coor(move), false, true);
+    break;
+  case captpass_r:
+    return Move(color(), bits_to_coor(move >> 7), bits_to_coor(move), true, true);
+    break;
+  case captpass_l:
+    return Move(color(), bits_to_coor(move >> 9), bits_to_coor(move), true, true);
     break;
   default:
     std::cerr << "unknown move in get_move_from_ll\n";
