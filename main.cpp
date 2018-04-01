@@ -21,10 +21,11 @@ int main(int argc, char **argv) {
   }
   cout << "Number of games: " << n_games << endl;
   Random_Player white_player = Random_Player(white);
-  Minimax_Player black_player = Minimax_Player(black);
+  Minimax_Player black_player = Minimax_Player(black, 2000);
   int w = 0, b = 0;
   for (int i = 0; i < n_games; ++i)
   {
+    cout << "Game #" << i << endl;
     Game game = Game(2, 4, &white_player, &black_player);
     game.start();
     if (game.get_winner() == black)

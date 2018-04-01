@@ -31,7 +31,7 @@ class Minimax_Player : public Player {
   double alphabeta_maximizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta);
   double alphabeta_minimizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta);
   Move minimax_start(ll attacker, ll deffender, ll ep, int max_depth);
-  double eval(ll attacker, ll deffender);
+  double eval(ll attacker, ll deffender, int depth);
   double eval_positions(ll attacker, ll deffender);
   void set_timer();
   bool timeout();

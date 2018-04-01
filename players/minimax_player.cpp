@@ -3,6 +3,7 @@
 #define MAXDEPTH 9
 #define STARTDEPTH 4
 #define ALLOWEDMOVES {fwd, capt_r, capt_l}
+#define DRAW_SCORE 0.5
 
 using std::max;
 using std::min;
@@ -59,7 +60,7 @@ Move Minimax_Player :: minimax(ll attacker, ll deffender, ll ep) {
     }
   }
 
-  std::cout << "depth reached: " << depth << std::endl;
+  //std::cout << "depth reached: " << depth << std::endl;
 
   return m;
 }
@@ -152,8 +153,11 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
   }
 
   if (cur_depth >= max_depth || has_ended(attacker, deffender)) {
-    return eval(rev_bites(deffender), rev_bites(attacker));
+    return eval(rev_bites(deffender), rev_bites(attacker), cur_depth);
   }
+
+  //flag if there has been move made
+  bool move_made = false;
 
   double best_score = DBLMIN;
   for (movetype move : ALLOWEDMOVES) {
@@ -164,6 +168,8 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
       ll buff = moves & (1UL << i);
       ll new_att, new_def, new_ep;
       if (buff) {
+        //move was made
+        move_made = true;
         //get new positions of attacker and deffender after the move made
         switch (move) {
         case fwd:
@@ -205,7 +211,13 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
     }
   }
 
-  return best_score;
+  if (move_made)
+  {
+    return best_score;
+  } else {
+    return DRAW_SCORE; //draw; no more moves
+  }
+  
 }
 
 double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
@@ -216,8 +228,11 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
   }
 
   if (cur_depth >= max_depth || has_ended(attacker, deffender)) {
-    return eval(attacker, deffender);
+    return eval(attacker, deffender, cur_depth);
   }
+
+  //flag if there has been move made
+  bool move_made = false;
 
   double best_score = DBLMAX;
   for (movetype move : ALLOWEDMOVES) {
@@ -228,6 +243,8 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
       ll buff = moves & (1UL << i);
       ll new_att, new_def, new_ep;
       if (buff) {
+        //move was made
+        move_made = true;
         //get new positions of attacker and deffender after the move made
         switch (move) {
         case fwd:
@@ -269,12 +286,17 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
     }
   }
 
-  return best_score;
+  if (move_made)
+  {
+    return best_score;
+  } else {
+    return DRAW_SCORE; //draw; no more moves
+  }
 }
 
 /* General eval, calling all other evals */
-double Minimax_Player :: eval (ll attacker, ll deffender) {
-  return eval_positions(attacker, deffender);
+double Minimax_Player :: eval (ll attacker, ll deffender, int depth) {
+  return eval_positions(attacker, deffender) / (depth * 0.1);
 }
 
 double Minimax_Player :: eval_positions(ll attacker, ll deffender) {

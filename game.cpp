@@ -45,7 +45,7 @@ bool Game::next_move() {
 
 
     //print board
-    std::cout << board_ << std::endl;
+    //std::cout << board_ << std::endl;
     // print player
 
 
@@ -70,8 +70,8 @@ bool Game::next_move() {
         return false;
       }
     }
-    std::cout << (current_player_ -> color() == white ? "White" : "Black") << "'s turn" << std::endl;
-    std::cout << move << std::endl;
+    //std::cout << (current_player_ -> color() == white ? "White" : "Black") << "'s turn" << std::endl;
+    //std::cout << move << std::endl;
 
 
     //switch player
