@@ -20,8 +20,8 @@ int main(int argc, char **argv) {
     n_games = atoi(argv[1]);
   }
   cout << "Number of games: " << n_games << endl;
-  // Random_Player white_player = Random_Player(white);
-  Human_Player white_player = Human_Player(white);
+  Random_Player white_player = Random_Player(white);
+  // Human_Player white_player = Human_Player(white);
   Minimax_Player black_player = Minimax_Player(black, 2000);
   int w = 0, b = 0;
   for (int i = 0; i < n_games; ++i)
