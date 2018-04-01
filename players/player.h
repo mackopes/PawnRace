@@ -5,7 +5,7 @@
 
 //project includes
 #include "../board.h"
-#include "../tile.h"
+#include "../general_header.h"
 #include "../move.h"
 
 class Player {

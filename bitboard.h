@@ -7,7 +7,7 @@
 
 //project includes
 #include "board.h"
-#include "tile.h"
+#include "general_header.h"
 
 typedef std::pair<int, int> pair_ii;
 

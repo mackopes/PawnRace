@@ -9,7 +9,6 @@
 //project includes
 #include "general_header.h"
 #include "game.h"
-#include "tile.h"
 #include "utility.h"
 #include "move.h"
 #include "board.h"
