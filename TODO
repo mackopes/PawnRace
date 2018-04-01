@@ -30,10 +30,10 @@ players
    ✔ alpha-beta pruning @done (18-04-01 16:36)
    ☐ board hashing
    ✔ iterative deepening on timer @done (18-04-01 16:59)
-   ☐ multithreaded
-   ☐ minimax AI with genetic values - inherit
+☐ multithreaded general AI
+☐ minimax AI with genetic values - inherit from minimax AI or from multithreaded AI
    ☐ eval functions
- ✔ repeat move @done (17-02-18 23:46)
+   ☐ genetic updater
 
 optimisations
  ☐ faster rev_bites
