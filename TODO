@@ -28,7 +28,7 @@ players
    ✔ basic minimax @done (18-04-01 16:36)
    ✔ alpha-beta pruning @done (18-04-01 16:36)
    ☐ board hashing
-   ☐ iterative deepening on timer
+   ✔ iterative deepening on timer @done (18-04-01 16:59)
    ☐ multithreaded
    ☐ minimax AI with genetic values - inherit
    ☐ eval functions

@@ -14,25 +14,16 @@
 using std::cout;
 using std::endl;
 
-int main() {
-  /*Board b(4, 7);
-
-  cout << b << endl;
-  cout << endl;
-
-  b.apply_move(Move(white, std::make_pair(6, 2), std::make_pair(4, 2), false, true));
-  cout << b << endl;
-
-  b.apply_move(Move(black, std::make_pair(1, 5), std::make_pair(2, 5), false, false));
-  cout << b << endl;*/
-
+int main(int argc, char **argv) {
+  int n_games = 1;
+  if (argc > 1) {
+    n_games = atoi(argv[1]);
+  }
+  cout << "Number of games: " << n_games << endl;
   Random_Player white_player = Random_Player(white);
-  // Minimax_Player white_player = Minimax_Player(white);
-  //Random_Player black_player = Random_Player(black);
-  //Human_Player black_player = Human_Player(black);
   Minimax_Player black_player = Minimax_Player(black);
   int w = 0, b = 0;
-  for (int i = 0; i < 1; ++i)
+  for (int i = 0; i < n_games; ++i)
   {
     Game game = Game(2, 4, &white_player, &black_player);
     game.start();
