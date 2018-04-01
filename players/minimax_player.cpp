@@ -2,7 +2,7 @@
 
 #define MAXDEPTH 9
 #define STARTDEPTH 4
-#define ALLOWEDMOVES {fwd, capt_r, capt_l, ffwd}
+#define ALLOWEDMOVES {capt_r, capt_l, fwd, ffwd}
 #define DRAW_SCORE 0.5
 
 using std::max;
