@@ -1,7 +1,5 @@
 #include "minimax_player.h"
 
-#define ALPHA DBLMIN
-#define BETA DBLMAX
 #define MAXDEPTH 8
 #define ALLOWEDMOVES {fwd}
 
@@ -21,7 +19,6 @@ Move Minimax_Player :: get_move(Board board) {
 
   //double minimax(ll attacker, ll deffender, ll ep, double & alpha, double & beta, ll & best_move, int current_depth, int max_depth, double carry)
   Move best_move;
-  ll alpha = ALPHA, beta = BETA;
   if (color() == black) {
     /* start minimax without swapping the b/w players */
     return minimax(b, w, ep);
