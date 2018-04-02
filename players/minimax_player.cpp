@@ -1,6 +1,5 @@
 #include "minimax_player.h"
 
-#define MAXDEPTH 9
 #define STARTDEPTH 4
 #define ALLOWEDMOVES {captpass_r, captpass_l, capt_r, capt_l, fwd, ffwd}
 #define DRAW_SCORE 0.5
@@ -22,9 +21,8 @@ Minimax_Player :: Minimax_Player(tile color, long max_time) : Player(color) {
 
 Move Minimax_Player :: get_move(Board board) {
   ll w, b, ep;
-
   //convert the board to longlongs
-  //void getll(unsigned long long & w, unsigned long long & b, unsigned long long & ep, Board board);
+  //void getll(ll & w, ll & b, ll & ep, Board board);
   getll(w, b, ep, board);
   //double minimax(ll attacker, ll deffender, ll ep, double & alpha, double & beta, ll & best_move, int current_depth, int max_depth, double carry)
   Move best_move;
@@ -37,10 +35,12 @@ Move Minimax_Player :: get_move(Board board) {
   }
 }
 
+/* Set the timer */
 void Minimax_Player :: set_timer() {
   start_time_ = std::clock();
 }
 
+/* Ckeck if ran out of time (given by max_time_) */
 bool Minimax_Player :: timeout() {
   return (1000.0 * (std::clock() - start_time_) / CLOCKS_PER_SEC) >= max_time_;
 }
@@ -58,11 +58,11 @@ Move Minimax_Player :: minimax(ll attacker, ll deffender, ll ep) {
     }
   }
 
-  //std::cout << "depth reached: " << depth << std::endl;
-
+  std::cout << "depth reached: " << depth << std::endl;
   return m;
 }
 
+/* get new positions of attacker, deffender and ep after given move is made */
 void Minimax_Player :: get_next_position(movetype movtp, ll move, ll attacker, ll deffender, ll ep, ll & new_att, ll & new_def, ll & new_ep) {
   switch (movtp) {
   case fwd:
@@ -101,7 +101,8 @@ void Minimax_Player :: get_next_position(movetype movtp, ll move, ll attacker, l
   }
 }
 
-Move Minimax_Player :: get_move_from_ll(ll move, movetype movtp) {
+/* translate move from ll to Move */
+Move Minimax_Player :: translate_move(ll move, movetype movtp) {
   if (color() == black) {
     switch (movtp) {
     case fwd:
@@ -123,7 +124,7 @@ Move Minimax_Player :: get_move_from_ll(ll move, movetype movtp) {
       return Move(color(), bits_to_coor(move >> 9), bits_to_coor(move), true, true);
       break;
     default:
-      std::cerr << "unknown move in get_move_from_ll\n";
+      std::cerr << "unknown move in translate_move\n";
       return Move();
       break;
     }
@@ -149,7 +150,7 @@ Move Minimax_Player :: get_move_from_ll(ll move, movetype movtp) {
       return Move(color(), bits_to_coor(move << 9), bits_to_coor(move), true, true);
       break;
     default:
-      std::cerr << "unknown move in get_move_from_ll\n";
+      std::cerr << "unknown move in translate_move\n";
       return Move();
       break;
     }
@@ -157,6 +158,10 @@ Move Minimax_Player :: get_move_from_ll(ll move, movetype movtp) {
 
 }
 
+/* place to start minimax algorithm
+ * initializes variables and start alphabeta
+ * get best value from alphabeta and returns coresponding move
+ */
 Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_depth) {
   //initialize alpha and beta
   double alpha = DBLMIN;
@@ -184,7 +189,7 @@ Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_d
         //update best_score and alpha
         if (bs > best_score) {
           best_score = bs;
-          best_move = get_move_from_ll(buff, move);
+          best_move = translate_move(buff, move);
         }
         alpha = max(alpha, best_score);
         //alpha-beta cutoff
@@ -204,6 +209,7 @@ Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_d
   return best_move;
 }
 
+/* maximizing player in alphabeta algorithm */
 double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
   if (timeout() || timeout_flag_) {
     timeout_flag_ = true;
@@ -211,7 +217,7 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
   }
 
   if (cur_depth >= max_depth || has_ended(attacker, deffender)) {
-    return eval(rev_bites(deffender), rev_bites(attacker), cur_depth);
+    return eval(attacker, deffender, cur_depth);
   }
 
   //flag if there has been move made
@@ -258,6 +264,7 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
 
 }
 
+/* minimizing player in alphabeta algorithm */
 double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
   if (timeout() || timeout_flag_) {
     timeout_flag_ = true;
@@ -265,7 +272,7 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
   }
 
   if (cur_depth >= max_depth || has_ended(attacker, deffender)) {
-    return eval(attacker, deffender, cur_depth);
+    return eval(rev_bites(deffender), rev_bites(attacker), cur_depth);
   }
 
   //flag if there has been move made
@@ -316,6 +323,9 @@ double Minimax_Player :: eval (ll attacker, ll deffender, int depth) {
   return eval_positions(attacker, deffender) / (depth * 0.1);
 }
 
+/* evaluates positions of pawns on board
+ * points create a ratio between how far your pawns/enemy pawns got.
+ */
 double Minimax_Player :: eval_positions(ll attacker, ll deffender) {
   double att = 0;
   double def = 0;
@@ -347,5 +357,5 @@ double Minimax_Player :: eval_positions(ll attacker, ll deffender) {
     }
   }
 
-  return def / att;
+  return att / def;
 }
