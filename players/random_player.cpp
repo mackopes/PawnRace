@@ -43,7 +43,6 @@ T Random_Player :: random_element(std::vector<T> &elements) {
 }
 
 std::vector <Move> Random_Player :: get_all_possible_moves(std::vector<unsigned long long> move_ll) {
-  int direction = color() == white ? WHITEDIR : BLACKDIR;
   std::vector <Move> mv;
   for (int i = 0; i < move_ll.size(); ++i) {
     for (int j = 0; j < 64; ++j) {

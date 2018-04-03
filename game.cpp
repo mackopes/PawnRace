@@ -41,9 +41,6 @@ void Game::start() {
 
 bool Game::next_move() {
   if (board_.won() == none) {
-    Move dummy = Move(en_pass, std::make_pair(-1, -1), std::make_pair(-1, -1), true, true, true);
-
-
     //print board
     std::cout << board_ << std::endl;
     // print player
