@@ -16,16 +16,17 @@
 #include "../utility.h"
 
 class Random_Player : public Player {
- private:
-  //enum movetype {fwd, ffwd, capt, captpass}
-  std::vector <Move> get_all_possible_moves(std::vector<unsigned long long> move_ll);
-  template<typename T>
-  T random_element(std::vector<T> & v);
- public:
-  Random_Player(tile color);
-  Move get_move(Board board);
-
-
+  private:
+    //enum movetype {fwd, ffwd, capt, captpass}
+    std::vector <Move> get_all_possible_moves(std::vector<unsigned long long> move_ll);
+    template<typename T>
+    T random_element(std::vector<T> & v);
+  public:
+    Random_Player(tile color);
+    Move get_move(Board board);
+    ~Random_Player() {
+        //empty
+    }
 };
 
 #endif

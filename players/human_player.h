@@ -16,12 +16,13 @@
 #include "../utility.h"
 
 class Human_Player : public Player {
- private:
- public:
-  Human_Player(tile color);
-  Move get_move(Board board);
-
-
+  private:
+  public:
+    Human_Player(tile color);
+    Move get_move(Board board);
+    ~Human_Player() {
+        //empty
+    }
 };
 
 #endif

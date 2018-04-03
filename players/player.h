@@ -27,8 +27,11 @@ class Player {
     return repeat_move;
   }
 
-  virtual Move get_move(Board board) = 0;
+  virtual ~Player() {
+    //empty
+  }
 
+  virtual Move get_move(Board board) = 0;
 };
 
 #endif

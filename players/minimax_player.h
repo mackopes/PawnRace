@@ -41,6 +41,9 @@ class Minimax_Player : public Player {
   Minimax_Player(tile color);
   Minimax_Player(tile color, long max_time);
   Move get_move(Board board);
+  virtual ~Minimax_Player() {
+    //epmty
+  }
 };
 
 #endif
