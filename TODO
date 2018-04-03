@@ -10,7 +10,7 @@ game
  ☐ custom printing stages of game
  ✔ command line arguments parsing @done (18-04-02 01:40)
  ☐ redo makefile
- ☐ fix ugly pointers to players in main.cpp
+ ✔ fix ugly pointers to players in main.cpp @done (18-04-03 09:54)
 
 
 main
