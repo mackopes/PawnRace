@@ -61,32 +61,22 @@ int main(int argc, char **argv) {
     n_games = args["ngames"];
   }
 
-  int t = 5000;
-
-  if (args["aitimeout"]) {
-    t = args["aitimeout"];
-  }
-
-  Human_Player tmp_w_hum = Human_Player(white);
-  Random_Player tmp_w_ran = Random_Player(white);
-  Minimax_Player tmp_w_min = Minimax_Player(white, t);
-
   //initialize players
   Player * white_player;
   if (args["white"]) {
     string whitearg = string_to_lower(args["white"]);
     if (string("human").compare(whitearg) == 0) {
-      white_player = &tmp_w_hum;
+      white_player = new Human_Player(white);
       cout << "White Player: Human" << endl;
     } else if (string("random").compare(whitearg) == 0) {
-      white_player = &tmp_w_ran;
+      white_player = new Random_Player(white);
       cout << "White Player: Random" << endl;
     } else if (string("ai").compare(whitearg) == 0) {
       int t = 5000;
       if (args["aitimeout"]) {
         t = args["aitimeout"];
       }
-      white_player = &tmp_w_min;
+      white_player = new Minimax_Player(white, t);
       cout << "White Player: AI" << endl;
     } else {
       cerr << "Unkown player type." << endl;
@@ -97,34 +87,36 @@ int main(int argc, char **argv) {
     if (args["aitimeout"]) {
       t = args["aitimeout"];
     }
-    white_player = &tmp_w_min;
+    white_player = new Minimax_Player(white, t);
     cout << "White Player: AI" << endl;
   }
-
-  Human_Player tmp_b_hum = Human_Player(black);
-  Random_Player tmp_b_ran = Random_Player(black);
-  Minimax_Player tmp_b_min = Minimax_Player(black, t);
 
   Player * black_player;
   if (args["black"]) {
     string blackarg = string_to_lower(args["black"]);
     if (string("human").compare(blackarg) == 0) {
-      black_player = &tmp_b_hum;
+      black_player = new Human_Player(black);
       cout << "Black Player: Human" << endl;
     } else if (string("random").compare(blackarg) == 0) {
-      black_player = &tmp_b_ran;
+      black_player = new Random_Player(black);
       cout << "Black Player: Random" << endl;
     } else if (string("ai").compare(blackarg) == 0) {
-
-
-      black_player = &tmp_b_min;
+      int t = 5000;
+      if (args["aitimeout"]) {
+        t = args["aitimeout"];
+      }
+      black_player = new Minimax_Player(black, t);
       cout << "Black Player: AI" << endl;
     } else {
       cerr << "Unkown player type." << endl;
       return 0;
     }
   } else {
-    black_player = &tmp_b_min;
+    int t = 5000;
+    if (args["aitimeout"]) {
+      t = args["aitimeout"];
+    }
+    black_player = new Minimax_Player(black, t);
     cout << "Black Player: AI" << endl;
   }
 
@@ -140,6 +132,9 @@ int main(int argc, char **argv) {
       w++;
     }
   }
+
+  delete white_player;
+  delete black_player;
 
   cout << "White: " << w << endl;
   cout << "Black: " << b << endl;
