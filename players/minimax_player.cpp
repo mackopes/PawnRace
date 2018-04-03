@@ -1,8 +1,9 @@
 #include "minimax_player.h"
 
-#define STARTDEPTH 4
-#define ALLOWEDMOVES {captpass_r, captpass_l, capt_r, capt_l, fwd, ffwd}
+#define STARTDEPTH 6
+#define ALLOWEDMOVES {captpass_r, captpass_l, capt_r, capt_l, ffwd, fwd}
 #define DRAW_SCORE 0.5
+#define DEPTH_THRESHOLD 6
 
 using std::max;
 using std::min;
@@ -229,6 +230,7 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
   if (boardhash.find(brd) != boardhash.end()) {
     return boardhash[brd];
   }
+
   //flag if there has been move made
   bool move_made = false;
 
