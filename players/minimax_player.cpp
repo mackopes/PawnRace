@@ -224,6 +224,11 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
     return eval(attacker, deffender, cur_depth);
   }
 
+  llboard brd = {attacker, deffender, ep};
+
+  if (boardhash.find(brd) != boardhash.end()) {
+    return boardhash[brd];
+  }
   //flag if there has been move made
   bool move_made = false;
 
@@ -261,8 +266,10 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
   }
 
   if (move_made) {
+    boardhash[brd] = best_score;
     return best_score;
   } else {
+    boardhash[brd] = DRAW_SCORE;
     return DRAW_SCORE; //draw; no more moves
   }
 
@@ -277,6 +284,13 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
 
   if (cur_depth >= max_depth || has_ended(attacker, deffender)) {
     return eval(rev_bites(deffender), rev_bites(attacker), cur_depth);
+  }
+
+  //save board struct
+  llboard brd = {attacker, deffender, ep};
+  //check if board hash is stored
+  if (boardhash.find(brd) != boardhash.end()) {
+    return boardhash[brd];
   }
 
   //flag if there has been move made
@@ -316,8 +330,10 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
   }
 
   if (move_made) {
+    boardhash[brd] = best_score;
     return best_score;
   } else {
+    boardhash[brd] = DRAW_SCORE;
     return DRAW_SCORE; //draw; no more moves
   }
 }

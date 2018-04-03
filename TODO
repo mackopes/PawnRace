@@ -31,7 +31,7 @@ players
  ☐ minimax AI general
    ✔ basic minimax @done (18-04-01 16:36)
    ✔ alpha-beta pruning @done (18-04-01 16:36)
-   ☐ board hashing
+   ✔ board hashing @done (18-04-03 13:07)
    ✔ iterative deepening on timer @done (18-04-01 16:59)
 ☐ multithreaded general AI
 ☐ minimax AI with genetic values - inherit from minimax AI or from multithreaded AI
