@@ -11,12 +11,14 @@ Minimax_Player :: Minimax_Player(tile color) : Player(color) {
   max_time_ = 5000;
   start_time_ = std::clock();
   timeout_flag_ = false;
+  boardhash.clear();
 }
 
 Minimax_Player :: Minimax_Player(tile color, long max_time) : Player(color) {
   max_time_ = max_time;
   start_time_ = std::clock();
   timeout_flag_ = false;
+  boardhash.clear();
 }
 
 Move Minimax_Player :: get_move(Board board) {
@@ -166,6 +168,8 @@ Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_d
   //initialize alpha and beta
   double alpha = DBLMIN;
   double beta = DBLMAX;
+  //clear hashmap
+  boardhash.clear();
 
   //start is always maximizing player
   //behaves like alpha-beta maximizing, but return best move instead of best score

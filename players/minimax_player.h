@@ -8,6 +8,7 @@
 #include <limits>
 #include <cmath>
 #include <ctime>
+#include <map>
 
 //project includes
 // #include "board.h"
@@ -23,9 +24,24 @@
 
 class Minimax_Player : public Player {
  private:
+  struct llboard {
+    ll attacker;
+    ll deffender;
+    ll ep;
+
+    bool operator==(const llboard &o) const {
+      return attacker == o.attacker && deffender == o.deffender && ep == o.ep;
+    }
+
+    bool operator<( const llboard &o) const {
+      return attacker < o.attacker || (attacker == o.attacker && deffender < o.deffender)
+             || (attacker == o.attacker && deffender == o.deffender && ep < o.ep);
+    }
+  };
   long max_time_;
   std::clock_t start_time_;
   bool timeout_flag_;
+  std::map<llboard, double> boardhash;
 
   Move minimax(ll attacker, ll deffender, ll ep);
   double alphabeta_maximizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta);
