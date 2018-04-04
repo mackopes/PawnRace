@@ -8,11 +8,9 @@
 
 //project includes
 #include "general_header.h"
-#include "game.h"
-#include "utility.h"
 #include "move.h"
 #include "board.h"
-#include "players/player.h"
+#include "../players/player.h"
 
 typedef std::pair<int, int> pair_ii;
 

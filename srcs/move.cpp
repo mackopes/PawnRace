@@ -3,7 +3,7 @@
 #include <string>
 
 //project includes
-#include "move.h"
+#include "header_files/move.h"
 
 Move::Move(tile player, pair_ii from, pair_ii to, bool capture, bool en_passant, bool no_move) {
   player_ = player;

@@ -11,9 +11,9 @@
 // #include "board.h"
 // #include "tile.h"
 // #include "move.h"
-#include "player.h"
-#include "../bitboard.h"
-#include "../utility.h"
+#include "../player.h"
+#include "../../header_files/bitboard.h"
+#include "../../header_files/utility.h"
 
 class Random_Player : public Player {
   private:

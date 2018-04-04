@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 //project includes
-#include "board.h"
-#include "utility.h"
+#include "header_files/board.h"
+#include "header_files/utility.h"
 
 //using
 using std::cout;

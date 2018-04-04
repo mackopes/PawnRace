@@ -1,49 +1,34 @@
-CC=g++ -std=c++14
-FLAGS=-Wall -O3
-PLAYERS=random_player.cpp human_player.cpp minimax_player.cpp
-SOURCES=main.cpp move.cpp game.cpp bitboard.cpp board.cpp utility.cpp \
-        $(addprefix player/,$(PLAYERS))
-OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTALBE=pawnrace
+CXX=g++ -std=c++14
+LDFLAGS=-Wall -O3
+CXXFLAGS=-Wall -c -O3
+BUILD_DIR=./build
+PLAYERS=random_player/random_player.cpp human_player/human_player.cpp minimax_player/minimax_player.cpp
+PLAYERS_PREFIX=players
+SOURCES_DIR=srcs
+SOURCES=$(addprefix $(SOURCES_DIR)/,main.cpp move.cpp game.cpp bitboard.cpp \
+board.cpp utility.cpp $(addprefix $(PLAYERS_PREFIX)/,$(PLAYERS)))
+OBJECTS=$(SOURCES:%.cpp=$(BUILD_DIR)/%.o)
+EXECUTABLE=pawnrace
+DEPS = $(OBJECTS:.o=.d)
 
-all: pawnrace
+all: $(EXECUTABLE)
 
-pawnrace: main.o move.o game.o players/random_player.o \
-  players/human_player.o bitboard.o players/minimax_player.o
-	$(CC) $(FLAGS) main.o board.o move.o utility.o game.o players/random_player.o \
-	bitboard.o players/human_player.o players/minimax_player.o -o pawnrace
+$(EXECUTABLE): $(BUILD_DIR)/$(EXECUTABLE)
 
-main.o: board.o game.o main.cpp
-	$(CC) $(FLAGS) -c main.cpp
+$(BUILD_DIR)/$(EXECUTABLE): $(OBJECTS)
+	@# Create build directories - same structure as sources.
+	@mkdir -p $(@D)
+	@# Just link all the object files.
+	$(CXX) $(LDFLAGS) $^ -o $(EXECUTABLE)
 
-game.o: utility.o move.o game.cpp players/random_player.o board.o game.h \
-  players/human_player.o players/minimax_player.o
-	$(CC) $(FLAGS) -c game.cpp
+-include $(DEPS)
 
-players/random_player.o: move.o board.o bitboard.o \
-  players/random_player.cpp players/random_player.h
-	$(CC) $(FLAGS) -c players/random_player.cpp -o players/random_player.o
-
-players/minimax_player.o: move.o board.o bitboard.o \
-  players/minimax_player.cpp players/minimax_player.h
-	$(CC) $(FLAGS) -c players/minimax_player.cpp -o players/minimax_player.o
-
-players/human_player.o: move.o board.o bitboard.o \
-  players/human_player.cpp players/human_player.h
-	$(CC) $(FLAGS) -c players/human_player.cpp -o players/human_player.o
-
-board.o: move.o utility.o board.cpp board.h
-	$(CC) $(FLAGS) -c board.cpp
-
-move.o: move.cpp move.h
-	$(CC) $(FLAGS) -c move.cpp
-
-bitboard.o: bitboard.cpp bitboard.h
-	$(CC) $(FLAGS) -c bitboard.cpp
-
-utility.o: utility.cpp utility.h
-	$(CC) $(FLAGS) -c utility.cpp
+$(BUILD_DIR)/%.o : %.cpp
+	@mkdir -p $(@D)
+	@# The -MMD flags additionaly creates a .d file with
+	@# the same name as the .o file.
+	$(CXX) $(CXXFLAGS) -MMD -c $< -o $@
 
 clean:
-	find . -name "*.o" -type f -delete
-	rm pawnrace
+	-rm $(OBJECTS) $(DEPS)
+	-rm $(EXECUTABLE)

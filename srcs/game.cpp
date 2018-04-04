@@ -1,4 +1,5 @@
-#include "game.h"
+#include "header_files/game.h"
+#include "header_files/utility.h"
 
 Game::Game(int w, int b, Player * white_player, Player * black_player) {
   board_ = Board(w, b);
