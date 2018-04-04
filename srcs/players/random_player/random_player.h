@@ -21,6 +21,7 @@ class Random_Player : public Player {
     std::vector <Move> get_all_possible_moves(std::vector<unsigned long long> move_ll);
     template<typename T>
     T random_element(std::vector<T> & v);
+    int random_int(int min, int max);
   public:
     Random_Player(tile color);
     Move get_move(Board board);

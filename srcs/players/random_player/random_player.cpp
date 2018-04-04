@@ -33,7 +33,7 @@ Move Random_Player :: get_move(Board board) {
   }
 }
 
-int random_int(int min, int max) {
+int Random_Player :: random_int(int min, int max) {
   return ((rand() % (max - min + 1)) + min);
 }
 
