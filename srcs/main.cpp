@@ -124,6 +124,8 @@ int main(int argc, char **argv) {
   int w = 0, b = 0;
   for (int i = 1; i <= n_games; ++i) {
     cout << "Game #" << i << endl;
+    white_player -> reset();
+    black_player -> reset();
     Game game = Game(white_player, black_player);
     game.start();
     if (game.get_winner() == black) {

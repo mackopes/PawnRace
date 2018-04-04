@@ -31,6 +31,14 @@ class Player {
     //empty
   }
 
+  /* Resets player to original state before starting new game
+   * Should be implemented in derived classes in case player
+   * behaves differently based on previous turns
+   */
+  virtual void reset() {
+    //empty
+  }
+
   virtual Move get_move(Board board) = 0;
 };
 

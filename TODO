@@ -1,51 +1,53 @@
 game
- ✔ get move from player, and make move @done (11-02-18 00:13)
- ☐ remember all moves
- ✔ constructors @done (10-02-18 21:37)
- ☐ gamestats
-   ✔ winner @done (18-04-01 16:36)
-   ☐ number of moves
-   ☐ number of pawns after every move
-   ☐ graphs?
- ☐ custom printing stages of game
- ✔ command line arguments parsing @done (18-04-02 01:40)
- ✔ redo makefile @done (18-04-04 22:23)
- ✔ fix ugly pointers to players in main.cpp @done (18-04-03 09:54)
+    ✔ get move from player, and make move @done (11-02-18 00:13)
+    ☐ remember all moves
+    ✔ constructors @done (10-02-18 21:37)
+    ☐ gamestats
+      ✔ winner @done (18-04-01 16:36)
+      ☐ number of moves
+      ☐ number of pawns after every move
+      ☐ graphs?
+    ☐ custom printing stages of game
+    ✔ command line arguments parsing @done (18-04-02 01:40)
+    ✔ redo makefile @done (18-04-04 22:23)
+    ✔ fix ugly pointers to players in main.cpp @done (18-04-03 09:54)
 
 
 main
- ✔ first game! @done (11-02-18 00:13)
+    ✔ first game! @done (11-02-18 00:13)
 
 bitboard functions
- ✔ make unsigned long longs out of board @done (08-02-18 23:59)
- ✔ simulate moves @done (17-02-18 22:19)
-   ✔ fwd @done (09-02-18 21:21)
-   ✔ 2 fwd @done (11-02-18 23:15)
-   ✔ pass @done (11-02-18 23:15)
-   ✔ en passant pass @done (17-02-18 22:19)
+    ✔ make unsigned long longs out of board @done (08-02-18 23:59)
+    ✔ simulate moves @done (17-02-18 22:19)
+      ✔ fwd @done (09-02-18 21:21)
+      ✔ 2 fwd @done (11-02-18 23:15)
+      ✔ pass @done (11-02-18 23:15)
+      ✔ en passant pass @done (17-02-18 22:19)
 
 players
- ✔ random player @done (17-02-18 22:19)
-   ✔ en passant capture @done (17-02-18 22:19)
- ☐ print player ??
- ☐ minimax AI general
-   ✔ basic minimax @done (18-04-01 16:36)
-   ✔ alpha-beta pruning @done (18-04-01 16:36)
-   ✔ board hashing @done (18-04-03 13:07)
-   ✔ iterative deepening on timer @done (18-04-01 16:59)
-☐ multithreaded general AI
-☐ minimax AI with genetic values - inherit from minimax AI or from multithreaded AI
-   ☐ eval functions
-   ☐ genetic updater
+    ✔ random player @done (17-02-18 22:19)
+      ✔ en passant capture @done (17-02-18 22:19)
+    ☐ print player ??
+    ☐ minimax AI general
+      ✔ basic minimax @done (18-04-01 16:36)
+      ✔ alpha-beta pruning @done (18-04-01 16:36)
+      ✔ board hashing @done (18-04-03 13:07)
+      ✔ iterative deepening on timer @done (18-04-01 16:59)
+   ☐ multithreaded general AI
+   ☐ minimax AI with genetic values - inherit from minimax AI or from multithreaded AI
+      ☐ eval functions
+      ☐ genetic updater
+   ☐ player stats
 
+ ☐ stats
 optimisations
- ☐ faster rev_bites
+    ☐ faster rev_bites
 
 move
- ✔ print move @done (11-02-18 23:25)
- ☐ return null instead of move with no_move set?
+    ✔ print move @done (11-02-18 23:25)
+    ☐ return null instead of move with no_move set?
 
- board
- ✔ get winner @done (17-02-18 21:50)
+    board
+    ✔ get winner @done (17-02-18 21:50)
 
  ☐ exceptions
