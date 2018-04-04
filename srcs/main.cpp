@@ -5,14 +5,14 @@
 #include <string>
 
 //project includes
-#include "board.h"
-#include "general_header.h"
-#include "players/random_player.h"
-#include "players/human_player.h"
-#include "players/minimax_player.h"
-#include "game.h"
-#include "utility.h"
-#include "dllibs/argagg.hpp"
+#include "header_files/board.h"
+#include "header_files/general_header.h"
+#include "players/random_player/random_player.h"
+#include "players/human_player/human_player.h"
+#include "players/minimax_player/minimax_player.h"
+#include "header_files/game.h"
+#include "header_files/utility.h"
+#include "../dllibs/argagg.hpp"
 
 //using
 using namespace std;

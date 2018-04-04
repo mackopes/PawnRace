@@ -2,10 +2,11 @@ CXX=g++ -std=c++14
 LDFLAGS=-Wall -O3
 CXXFLAGS=-Wall -c -O3
 BUILD_DIR=./build
-PLAYERS=random_player.cpp human_player.cpp minimax_player.cpp
+PLAYERS=random_player/random_player.cpp human_player/human_player.cpp minimax_player/minimax_player.cpp
 PLAYERS_PREFIX=players
-SOURCES=main.cpp move.cpp game.cpp bitboard.cpp board.cpp utility.cpp \
-        $(addprefix $(PLAYERS_PREFIX)/,$(PLAYERS))
+SOURCES_DIR=srcs
+SOURCES=$(addprefix $(SOURCES_DIR)/,main.cpp move.cpp game.cpp bitboard.cpp \
+board.cpp utility.cpp $(addprefix $(PLAYERS_PREFIX)/,$(PLAYERS)))
 OBJECTS=$(SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 EXECUTABLE=pawnrace
 DEPS = $(OBJECTS:.o=.d)

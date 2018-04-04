@@ -8,7 +8,6 @@
 
 //project includes
 #include "general_header.h"
-#include "utility.h"
 #include "move.h"
 
 typedef std::pair<int, int> pair_ii;
