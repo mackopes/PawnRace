@@ -10,6 +10,7 @@
 #include "players/random_player/random_player.h"
 #include "players/human_player/human_player.h"
 #include "players/minimax_player/minimax_player.h"
+#include "players/benchmark_player/benchmark_player.h"
 #include "header_files/game.h"
 #include "header_files/utility.h"
 #include "../dllibs/argagg.hpp"
@@ -71,6 +72,9 @@ int main(int argc, char **argv) {
     } else if (string("random").compare(whitearg) == 0) {
       white_player = new Random_Player(white);
       cout << "White Player: Random" << endl;
+    } else if (string("benchmark").compare(whitearg) == 0) {
+      white_player = new Benchmark_Player(white, 2000);
+      cout << "White Player: Benchmark" << endl;
     } else if (string("ai").compare(whitearg) == 0) {
       int t = 5000;
       if (args["aitimeout"]) {
@@ -100,6 +104,9 @@ int main(int argc, char **argv) {
     } else if (string("random").compare(blackarg) == 0) {
       black_player = new Random_Player(black);
       cout << "Black Player: Random" << endl;
+    } else if (string("benchmark").compare(blackarg) == 0) {
+      black_player = new Benchmark_Player(black, 2000);
+      cout << "Black Player: Benchmark" << endl;
     } else if (string("ai").compare(blackarg) == 0) {
       int t = 5000;
       if (args["aitimeout"]) {
