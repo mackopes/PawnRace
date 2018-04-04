@@ -2,7 +2,8 @@ CXX=g++ -std=c++14
 LDFLAGS=-Wall -O3
 CXXFLAGS=-Wall -c -O3
 BUILD_DIR=./build
-PLAYERS=random_player/random_player.cpp human_player/human_player.cpp minimax_player/minimax_player.cpp
+PLAYERS=random_player/random_player.cpp human_player/human_player.cpp \
+	minimax_player/minimax_player.cpp benchmark_player/benchmark_player.cpp
 PLAYERS_PREFIX=players
 SOURCES_DIR=srcs
 SOURCES=$(addprefix $(SOURCES_DIR)/,main.cpp move.cpp game.cpp bitboard.cpp \
