@@ -1,8 +1,8 @@
 #include "benchmark_player.h"
 
 #define MINRAND 1
-#define MAXRAND 8
-#define PROB_AF_THRESHOLD 0.96
+#define MAXRAND 6
+#define PROB_AF_THRESHOLD 0.92
 
 Benchmark_Player :: Benchmark_Player(tile color) : Player(color) {
   rp = new Random_Player(color);
@@ -31,7 +31,7 @@ int Benchmark_Player :: random_int(int min, int max) {
 Move Benchmark_Player :: get_move(Board board) {
   turn_++;
 
-  if (turn_ > MAXRAND) {
+  if (turn_ >= MAXRAND) {
     if (random_int(0, 1000) > PROB_AF_THRESHOLD * 1000) {
       return rp -> get_move(board);
     } else {
