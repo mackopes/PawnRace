@@ -146,6 +146,8 @@ int main(int argc, char **argv) {
     } else if (game.get_winner() == white) {
       w++;
     }
+    white_player -> reset();
+    black_player -> reset();
   }
 
   delete white_player;
