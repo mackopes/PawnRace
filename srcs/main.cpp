@@ -40,6 +40,10 @@ int main(int argc, char **argv) {
       {
         "aitimeout", {"--ai-timeout"},
         "Set timoeut of AIs. Default: 5000", 1
+      },
+      {
+        "benchmark", {"--benchmark"},
+        "Benchmark two players against each other", 0
       }
     }};
 
@@ -72,9 +76,6 @@ int main(int argc, char **argv) {
     } else if (string("random").compare(whitearg) == 0) {
       white_player = new Random_Player(white);
       cout << "White Player: Random" << endl;
-    } else if (string("benchmark").compare(whitearg) == 0) {
-      white_player = new Benchmark_Player(white, 2000);
-      cout << "White Player: Benchmark" << endl;
     } else if (string("ai").compare(whitearg) == 0) {
       int t = 5000;
       if (args["aitimeout"]) {
@@ -104,9 +105,6 @@ int main(int argc, char **argv) {
     } else if (string("random").compare(blackarg) == 0) {
       black_player = new Random_Player(black);
       cout << "Black Player: Random" << endl;
-    } else if (string("benchmark").compare(blackarg) == 0) {
-      black_player = new Benchmark_Player(black, 2000);
-      cout << "Black Player: Benchmark" << endl;
     } else if (string("ai").compare(blackarg) == 0) {
       int t = 5000;
       if (args["aitimeout"]) {
@@ -125,6 +123,11 @@ int main(int argc, char **argv) {
     }
     black_player = new Minimax_Player(black, t);
     cout << "Black Player: AI" << endl;
+  }
+
+  if (args["benchmark"]) {
+    white_player = new Benchmark_Player(white_player);
+    black_player = new Benchmark_Player(black_player);
   }
 
   cout << "Number of games: " << n_games << endl;
