@@ -1,6 +1,6 @@
 #include "minimax_player.h"
 
-#define STARTDEPTH 6
+#define STARTDEPTH 8
 #define ALLOWEDMOVES {captpass_r, captpass_l, capt_r, capt_l, ffwd, fwd}
 #define DRAW_SCORE 0.5
 #define DEPTH_THRESHOLD 6
@@ -216,7 +216,7 @@ Move Minimax_Player::minimax_start(ll attacker, ll deffender, ll ep, int max_dep
 
 /* maximizing player in alphabeta algorithm */
 double Minimax_Player::alphabeta_maximizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
-  if (timeout() || timeout_flag_) {
+  if (max_depth != STARTDEPTH && (timeout() || timeout_flag_)) {
     timeout_flag_ = true;
     return -1;
   }
@@ -279,7 +279,7 @@ double Minimax_Player::alphabeta_maximizing(ll attacker, ll deffender, ll ep, in
 
 /* minimizing player in alphabeta algorithm */
 double Minimax_Player::alphabeta_minimizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
-  if (timeout() || timeout_flag_) {
+  if (max_depth != STARTDEPTH && (timeout() || timeout_flag_)) {
     timeout_flag_ = true;
     return -1;
   }
