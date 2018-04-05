@@ -20,7 +20,7 @@ Minimax_Player::Minimax_Player(tile color, long max_time) : Player(color) {
   start_time_ = std::clock();
   timeout_flag_ = false;
   boardhash.clear();
-  cout << "max time " << max_time_ << endl;
+  std::cout << "max time " << max_time_ << std::endl;
 }
 
 Move Minimax_Player::get_move(Board board) {
