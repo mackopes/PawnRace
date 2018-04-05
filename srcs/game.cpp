@@ -7,6 +7,8 @@ Game::Game(int w, int b, Player * white_player, Player * black_player) {
   white_player_ = white_player;
   current_player_ = white_player_;
   move_counter_ = 0;
+  print_board_ = true;
+  print_winner_ = true;
 }
 
 Game::Game(Player * white_player, Player * black_player) {
@@ -15,36 +17,28 @@ Game::Game(Player * white_player, Player * black_player) {
   white_player_ = white_player;
   current_player_ = white_player_;
   move_counter_ = 0;
+  print_board_ = true;
+  print_winner_ = true;
 }
 
+void Game::print_board() {
+  if (print_board_) {
+    std::cout << board_ << std::endl;
+  }
+}
 
 void Game::start() {
-  while (next_move())
+  while (next_move()) {
     continue;
-
-  std::cout << board_ << std::endl;
-
-  switch (board_.won()) {
-  case none:
-    std::cout << "Draw" << std::endl;
-    break;
-  case black:
-    std::cout << "Black won" << std::endl;
-    break;
-  case white:
-    std::cout << "White won" << std::endl;
-    break;
-  default:
-    std::cout << "unknown winner" << std::endl;
-    break;
   }
+
+  print_board();
 }
 
 bool Game::next_move() {
   if (board_.won() == none) {
     //print board
-    std::cout << board_ << std::endl;
-    // print player
+    print_board();
 
     Move move = current_player_ -> get_move(board_);
     if (current_player_ -> get_repeat()) {
@@ -66,9 +60,6 @@ bool Game::next_move() {
         return false;
       }
     }
-    //std::cout << (current_player_ -> color() == white ? "White" : "Black") << "'s turn" << std::endl;
-    //std::cout << move << std::endl;
-
 
     //switch player
     current_player_ = current_player_ == white_player_ ? black_player_ : white_player_;
