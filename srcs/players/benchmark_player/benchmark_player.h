@@ -25,9 +25,7 @@ class Benchmark_Player : public Player {
   Benchmark_Player(Player * benchmarked_player);
   Move get_move(Board board);
   ~Benchmark_Player();
-  void reset() {
-    turn_ = 0;
-  }
+  void reset();
 };
 
 #endif

@@ -39,3 +39,13 @@ Benchmark_Player :: ~Benchmark_Player() {
   delete rp;
   delete bp;
 }
+
+void Benchmark_Player::reset() {
+  rp -> reset();
+  bp -> reset();
+
+  turn_ = 0;
+  timeval t1;
+  gettimeofday(&t1, NULL);
+  srand(t1.tv_usec * t1.tv_sec);
+}
