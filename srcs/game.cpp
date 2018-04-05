@@ -2,23 +2,24 @@
 #include "header_files/utility.h"
 
 Game::Game(int w, int b, Player * white_player, Player * black_player) {
-  board_ = Board(w, b);
+  white_space_ = w;
+  black_space_ = b;
   black_player_ = black_player;
   white_player_ = white_player;
-  current_player_ = white_player_;
-  move_counter_ = 0;
   print_board_ = true;
   print_winner_ = true;
+  reset();
 }
 
 Game::Game(Player * white_player, Player * black_player) {
+  white_space_ = -1;
+  black_space_ = -1;
   board_ = Board();
   black_player_ = black_player;
   white_player_ = white_player;
-  current_player_ = white_player_;
-  move_counter_ = 0;
   print_board_ = true;
   print_winner_ = true;
+  reset();
 }
 
 void Game::print_board() {
@@ -77,4 +78,17 @@ tile Game::get_winner() {
 void Game::set_print(bool v) {
   print_board_ = v;
   print_winner_ = v;
+}
+
+/* Reset game and both players */
+void Game::reset() {
+  if ((white_space_ == -1) || (black_space_ == -1)) {
+    board_ = Board();
+  } else {
+    board_ = Board(white_space_, black_space_);
+  }
+  current_player_ = white_player_;
+  move_counter_ = 0;
+  white_player_ -> reset();
+  black_player_ -> reset();
 }
