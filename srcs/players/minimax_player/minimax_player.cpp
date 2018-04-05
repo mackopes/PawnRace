@@ -61,7 +61,7 @@ Move Minimax_Player::minimax(ll attacker, ll deffender, ll ep) {
     }
   }
 
-  std::cout << "depth reached: " << depth << std::endl;
+  //std::cout << "depth reached: " << depth << std::endl;
   return m;
 }
 
