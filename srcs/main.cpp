@@ -44,6 +44,10 @@ int main(int argc, char **argv) {
       {
         "benchmark", {"--benchmark"},
         "Benchmark two players against each other", 0
+      },
+      {
+        "no-print", {"--no-print"},
+        "Disables printing of board after each move", 0
       }
     }};
 
@@ -137,7 +141,7 @@ int main(int argc, char **argv) {
     white_player -> reset();
     black_player -> reset();
     Game game = Game(white_player, black_player);
-    if (args["benchmark"]) {
+    if (args["no-print"]) {
       game.set_print(false);
     }
     game.start();
