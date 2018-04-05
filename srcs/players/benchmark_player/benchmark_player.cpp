@@ -1,7 +1,7 @@
 #include "benchmark_player.h"
 
 #define RANDMOVES 2
-#define RANDPROB 50
+#define RANDPROB 60
 
 Benchmark_Player :: Benchmark_Player(Player * benchmarked_player) : Player(benchmarked_player -> color()) {
   //exception if inserted wrong player
@@ -24,7 +24,7 @@ Move Benchmark_Player :: get_move(Board board) {
   if (turn_ < RANDMOVES) {
     return rp -> get_move(board);
   } else if (turn_ == RANDMOVES) {
-    if ((random_int(1, 100) >= RANDPROB) && (color() == black)) {
+    if ((random_int(1, 100) <= RANDPROB) && (color() == black)) {
       return rp -> get_move(board);
     } else {
       return bp -> get_move(board);
