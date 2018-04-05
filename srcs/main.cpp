@@ -137,6 +137,9 @@ int main(int argc, char **argv) {
     white_player -> reset();
     black_player -> reset();
     Game game = Game(white_player, black_player);
+    if (args["benchmark"]) {
+      game.set_print(false);
+    }
     game.start();
     if (game.get_winner() == black) {
       b++;
