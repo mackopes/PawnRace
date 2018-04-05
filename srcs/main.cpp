@@ -17,7 +17,7 @@
 #include "header_files/game_worker.h"
 #include "../dllibs/argagg.hpp"
 
-#define N_THREADS 2
+#define MAX_THREADS 16
 
 //using
 using namespace std;
@@ -51,6 +51,10 @@ argagg::parser_results get_args(int argc, char **argv) {
       {
         "no-print", {"--no-print"},
         "Disables printing of board after each move", 0
+      },
+      {
+        "n-threads", {"--n-threads"},
+        "Number of threads to use", 1
       }
     }};
 
@@ -152,20 +156,26 @@ int main(int argc, char **argv) {
   cout << "Number of games: " << n_games << endl;
   int w = 0, b = 0;
 
+  int n_threads = thread::hardware_concurrency() - 2 < MAX_THREADS ? thread::hardware_concurrency() - 2 : MAX_THREADS;
+  if (args["n-threads"]) {
+    n_threads = args["n-threads"];
+  }
+  cout << "Using " << n_threads << " threads" << endl;
+
   vector<Game_Worker *> workers;
-  workers.resize(N_THREADS);
+  workers.resize(n_threads);
   vector<thread> worker_threads;
 
-  for (int i = 0; i < N_THREADS; ++i) {
+  for (int i = 0; i < n_threads; ++i) {
     //Game_worker(Player* white_player, Player* black_player, int n_games, int n_threads, int shift, argagg::parser_results args)
-    workers[i] = new Game_Worker(get_player(args, "white"), get_player(args, "black"), n_games, N_THREADS, i, args);
+    workers[i] = new Game_Worker(get_player(args, "white"), get_player(args, "black"), n_games, n_threads, i, args);
     worker_threads.emplace_back(thread_task, workers[i]);
   }
 
   double last_progress = -1;
   while (true) {
     int min_game = n_games + 1;
-    for (int i = 0; i < N_THREADS; ++i) {
+    for (int i = 0; i < n_threads; ++i) {
       if ((workers[i]->get_curr_processed_game() != -1) && (workers[i]->get_curr_processed_game() < min_game)) {
         min_game = workers[i]->get_curr_processed_game();
       }
@@ -181,7 +191,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  for (int i = 0; i < N_THREADS; ++i) {
+  for (int i = 0; i < n_threads; ++i) {
     worker_threads[i].join();
     b += workers[i]->get_black_wins();
     w += workers[i]->get_white_wins();
@@ -189,5 +199,5 @@ int main(int argc, char **argv) {
   }
 
   cout << "White: " << w << endl;
-  cout << "BLack: " << b << endl;
+  cout << "Black: " << b << endl;
 }
