@@ -25,7 +25,7 @@ class Game {
   bool print_board_;
   bool print_winner_;
 
-  void print_board()
+  void print_board();
  public:
   Game(int w, int b, Player * white_player, Player * black_player);
   Game(Player * white_player, Player * black_player);
