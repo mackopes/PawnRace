@@ -1,6 +1,6 @@
 CXX=g++ -std=c++14
-LDFLAGS=-Wall -O3
-CXXFLAGS=-Wall -c -O3
+LDFLAGS=-Wall -O3 -pthread
+CXXFLAGS=-Wall -c -O3 -pthread
 BUILD_DIR=./build
 PLAYERS=random_player/random_player.cpp human_player/human_player.cpp \
 	minimax_player/minimax_player.cpp benchmark_player/benchmark_player.cpp
