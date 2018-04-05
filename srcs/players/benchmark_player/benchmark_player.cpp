@@ -1,7 +1,7 @@
 #include "benchmark_player.h"
 
 #define RANDMOVES 2
-#define RANDPROB 60
+#define RANDPROB 40
 
 Benchmark_Player :: Benchmark_Player(Player * benchmarked_player) : Player(benchmarked_player -> color()) {
   //exception if inserted wrong player
