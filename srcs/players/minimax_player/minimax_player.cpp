@@ -8,21 +8,21 @@
 using std::max;
 using std::min;
 
-Minimax_Player :: Minimax_Player(tile color) : Player(color) {
+Minimax_Player::Minimax_Player(tile color) : Player(color) {
   max_time_ = 5000;
   start_time_ = std::clock();
   timeout_flag_ = false;
   boardhash.clear();
 }
 
-Minimax_Player :: Minimax_Player(tile color, long max_time) : Player(color) {
+Minimax_Player::Minimax_Player(tile color, long max_time) : Player(color) {
   max_time_ = max_time;
   start_time_ = std::clock();
   timeout_flag_ = false;
   boardhash.clear();
 }
 
-Move Minimax_Player :: get_move(Board board) {
+Move Minimax_Player::get_move(Board board) {
   ll w, b, ep;
   //convert the board to longlongs
   //void getll(ll & w, ll & b, ll & ep, Board board);
@@ -39,16 +39,16 @@ Move Minimax_Player :: get_move(Board board) {
 }
 
 /* Set the timer */
-void Minimax_Player :: set_timer() {
+void Minimax_Player::set_timer() {
   start_time_ = std::clock();
 }
 
 /* Ckeck if ran out of time (given by max_time_) */
-bool Minimax_Player :: timeout() {
+bool Minimax_Player::timeout() {
   return (1000.0 * (std::clock() - start_time_) / CLOCKS_PER_SEC) >= max_time_;
 }
 
-Move Minimax_Player :: minimax(ll attacker, ll deffender, ll ep) {
+Move Minimax_Player::minimax(ll attacker, ll deffender, ll ep) {
   int depth = STARTDEPTH;
   Move m;
   timeout_flag_ = false;
@@ -66,7 +66,7 @@ Move Minimax_Player :: minimax(ll attacker, ll deffender, ll ep) {
 }
 
 /* get new positions of attacker, deffender and ep after given move is made */
-void Minimax_Player :: get_next_position(movetype movtp, ll move, ll attacker, ll deffender, ll ep, ll & new_att, ll & new_def, ll & new_ep) {
+void Minimax_Player::get_next_position(movetype movtp, ll move, ll attacker, ll deffender, ll ep, ll & new_att, ll & new_def, ll & new_ep) {
   switch (movtp) {
   case fwd:
     new_att = (attacker | move) & (~(move >> 8));
@@ -99,13 +99,13 @@ void Minimax_Player :: get_next_position(movetype movtp, ll move, ll attacker, l
     new_ep = 0;
     break;
   default:
-    std :: cout << "unknown move!" << std :: endl;
+    std::cout << "unknown move!" << std::endl;
     break;
   }
 }
 
 /* translate move from ll to Move */
-Move Minimax_Player :: translate_move(ll move, movetype movtp) {
+Move Minimax_Player::translate_move(ll move, movetype movtp) {
   if (color() == black) {
     switch (movtp) {
     case fwd:
@@ -165,7 +165,7 @@ Move Minimax_Player :: translate_move(ll move, movetype movtp) {
  * initializes variables and start alphabeta
  * get best value from alphabeta and returns coresponding move
  */
-Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_depth) {
+Move Minimax_Player::minimax_start(ll attacker, ll deffender, ll ep, int max_depth) {
   //initialize alpha and beta
   double alpha = DBLMIN;
   double beta = DBLMAX;
@@ -215,7 +215,7 @@ Move Minimax_Player :: minimax_start(ll attacker, ll deffender, ll ep, int max_d
 }
 
 /* maximizing player in alphabeta algorithm */
-double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
+double Minimax_Player::alphabeta_maximizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
   if (timeout() || timeout_flag_) {
     timeout_flag_ = true;
     return -1;
@@ -278,7 +278,7 @@ double Minimax_Player :: alphabeta_maximizing(ll attacker, ll deffender, ll ep, 
 }
 
 /* minimizing player in alphabeta algorithm */
-double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
+double Minimax_Player::alphabeta_minimizing(ll attacker, ll deffender, ll ep, int cur_depth, int max_depth, double alpha, double beta) {
   if (timeout() || timeout_flag_) {
     timeout_flag_ = true;
     return -1;
@@ -341,14 +341,14 @@ double Minimax_Player :: alphabeta_minimizing(ll attacker, ll deffender, ll ep, 
 }
 
 /* General eval, calling all other evals */
-double Minimax_Player :: eval (ll attacker, ll deffender, int depth) {
+double Minimax_Player::eval (ll attacker, ll deffender, int depth) {
   return eval_positions(attacker, deffender) / (depth * 0.1);
 }
 
 /* evaluates positions of pawns on board
  * points create a ratio between how far your pawns/enemy pawns got.
  */
-double Minimax_Player :: eval_positions(ll attacker, ll deffender) {
+double Minimax_Player::eval_positions(ll attacker, ll deffender) {
   double att = 0;
   double def = 0;
   int multiplier = 1;
