@@ -74,7 +74,7 @@ tile Game::get_winner() {
   return board_.won();
 }
 
-void set_print(bool v) {
+void Game::set_print(bool v) {
   print_board_ = v;
   print_winner_ = v;
 }

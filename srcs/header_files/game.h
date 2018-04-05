@@ -32,6 +32,7 @@ class Game {
   void start();
   bool next_move();
   tile get_winner();
+  void set_print(bool v);
 };
 
 #endif
