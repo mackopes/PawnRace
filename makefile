@@ -7,7 +7,7 @@ PLAYERS=random_player/random_player.cpp human_player/human_player.cpp \
 PLAYERS_PREFIX=players
 SOURCES_DIR=srcs
 SOURCES=$(addprefix $(SOURCES_DIR)/,main.cpp move.cpp game.cpp bitboard.cpp \
-board.cpp utility.cpp $(addprefix $(PLAYERS_PREFIX)/,$(PLAYERS)))
+board.cpp utility.cpp game_worker.cpp $(addprefix $(PLAYERS_PREFIX)/,$(PLAYERS)))
 OBJECTS=$(SOURCES:%.cpp=$(BUILD_DIR)/%.o)
 EXECUTABLE=pawnrace
 DEPS = $(OBJECTS:.o=.d)

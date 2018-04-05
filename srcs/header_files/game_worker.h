@@ -3,7 +3,8 @@
 
 #include <iostream>
 
-#include "players/player.h"
+#include "../players/player.h"
+#include "game.h"
 #include "../../dllibs/argagg.hpp"
 
 class Game_Worker {
@@ -13,14 +14,14 @@ class Game_Worker {
 	int n_games_;
 	int n_threads_;
 	int shift_;
-	argagg::parser_results args_
+	argagg::parser_results args_;
 	int white_wins_;
 	int black_wins_;
 	int currently_processed_game_;
 
  public:
-	Game_worker(Player* white_player, Player* black_player, int n_games, int n_threads, int shift, argagg::parser_results args);
-	virtual void operator()() const;
+	Game_Worker(Player * white_player, Player * black_player, int n_games, int n_threads, int shift, argagg::parser_results args);
+	void start();
 	int get_white_wins() {
 		return white_wins_;
 	}
@@ -32,10 +33,14 @@ class Game_Worker {
 	 * return 0 if no games have been processed yet
 	 * return -1 if all games have been processed
 	 */
-	get_curr_processed_game() {
+	int get_curr_processed_game() {
 		return currently_processed_game_;
 	}
-}
+	~Game_Worker() {
+		delete white_player_;
+		delete black_player_;
+	}
+};
 
 
 #endif

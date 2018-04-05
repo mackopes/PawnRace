@@ -1,6 +1,6 @@
 #include "header_files/game_worker.h"
 
-Game_Worker::Game_worker(Player* white_player, Player* black_player, int n_games, int n_threads, int shift, argagg::parser_results args) {
+Game_Worker::Game_Worker(Player * white_player, Player * black_player, int n_games, int n_threads, int shift, argagg::parser_results args) {
 	white_player_ = white_player;
 	black_player_ = black_player;
 	n_games_ = n_games;
@@ -12,12 +12,15 @@ Game_Worker::Game_worker(Player* white_player, Player* black_player, int n_games
 	currently_processed_game_ = 0;
 }
 
-void Game_Worker::void operator()() const {
+void Game_Worker::start() {
+
 	Game game = Game(white_player_, black_player_);
-	if (args["no-print"]) {
+
+	if (args_["no-print"]) {
 		game.set_print(false);
 	}
-	for (int i = shift_; i <= n_games_; i = i + n_threads_) {
+
+	for (int i = shift_; i < n_games_; i = i + n_threads_) {
 		currently_processed_game_ = i;
 		game.reset();
 		game.start();

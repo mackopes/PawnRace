@@ -3,6 +3,7 @@
 #include <utility>
 #include <algorithm>
 #include <string>
+#include <thread>
 
 //project includes
 #include "header_files/board.h"
@@ -13,7 +14,10 @@
 #include "players/benchmark_player/benchmark_player.h"
 #include "header_files/game.h"
 #include "header_files/utility.h"
+#include "header_files/game_worker.h"
 #include "../dllibs/argagg.hpp"
+
+#define N_THREADS 2
 
 //using
 using namespace std;
@@ -73,26 +77,18 @@ Player * get_player(argagg::parser_results args, string player) {
     if (string("human").compare(playerarg) == 0) {
       if (string("white").compare(player) == 0) {
         ret = new Human_Player(white);
-      } else if (string("black").compare(player) == 0) {
-        ret = new Human_Player(black);
-      }
-
-      if (string("white").compare(player) == 0) {
         cout << "White Player: Human" << endl;
       } else if (string("black").compare(player) == 0) {
+        ret = new Human_Player(black);
         cout << "Black Player: Human" << endl;
       }
 
     } else if (string("random").compare(playerarg) == 0) {
       if (string("white").compare(player) == 0) {
         ret = new Random_Player(white);
-      } else if (string("black").compare(player) == 0) {
-        ret = new Random_Player(black);
-      }
-
-      if (string("white").compare(player) == 0) {
         cout << "White Player: Random" << endl;
       } else if (string("black").compare(player) == 0) {
+        ret = new Random_Player(black);
         cout << "Black Player: Random" << endl;
       }
 
@@ -105,13 +101,9 @@ Player * get_player(argagg::parser_results args, string player) {
 
       if (string("white").compare(player) == 0) {
         ret = new Minimax_Player(white, t);
-      } else if (string("black").compare(player) == 0) {
-        ret = new Minimax_Player(black, t);
-      }
-
-      if (string("white").compare(player) == 0) {
         cout << "White Player: AI" << endl;
       } else if (string("black").compare(player) == 0) {
+        ret = new Minimax_Player(black, t);
         cout << "Black Player: AI" << endl;
       }
 
@@ -127,14 +119,10 @@ Player * get_player(argagg::parser_results args, string player) {
     }
 
     if (string("white").compare(player) == 0) {
+      ret = new Minimax_Player(white, t);
       cout << "White Player: AI" << endl;
     } else if (string("black").compare(player) == 0) {
-      cout << "Black Player: AI" << endl;
-    }
-
-    if (string("white").compare(player) == 0) {
-      cout << "White Player: AI" << endl;
-    } else if (string("black").compare(player) == 0) {
+      ret = new Minimax_Player(black, t);
       cout << "Black Player: AI" << endl;
     }
 
@@ -147,6 +135,10 @@ Player * get_player(argagg::parser_results args, string player) {
   return ret;
 }
 
+void thread_task(Game_Worker * p) {
+  p -> start();
+}
+
 
 int main(int argc, char **argv) {
   argagg::parser_results args = get_args(argc, argv);
@@ -157,30 +149,45 @@ int main(int argc, char **argv) {
     n_games = args["ngames"];
   }
 
-  //initialize players
-  Player * white_player = get_player(args, "white");
-  Player * black_player = get_player(args, "black");
-
   cout << "Number of games: " << n_games << endl;
   int w = 0, b = 0;
-  for (int i = 1; i <= n_games; ++i) {
-    cout << "Game #" << i << endl;
-    Game game = Game(white_player, black_player);
-    if (args["no-print"]) {
-      game.set_print(false);
+
+  vector<Game_Worker *> workers;
+  workers.resize(N_THREADS);
+  vector<thread> worker_threads;
+
+  for (int i = 0; i < N_THREADS; ++i) {
+    //Game_worker(Player* white_player, Player* black_player, int n_games, int n_threads, int shift, argagg::parser_results args)
+    workers[i] = new Game_Worker(get_player(args, "white"), get_player(args, "black"), n_games, N_THREADS, i, args);
+    worker_threads.emplace_back(thread_task, workers[i]);
+  }
+
+  double last_progress = -1;
+  while (true) {
+    int min_game = n_games + 1;
+    for (int i = 0; i < N_THREADS; ++i) {
+      if ((workers[i]->get_curr_processed_game() != -1) && (workers[i]->get_curr_processed_game() < min_game)) {
+        min_game = workers[i]->get_curr_processed_game();
+      }
     }
-    game.reset();
-    game.start();
-    if (game.get_winner() == black) {
-      b++;
-    } else if (game.get_winner() == white) {
-      w++;
+    if (min_game == n_games + 1) {
+      break; //all finished
+    } else {
+      double progress = double(min_game) / double(n_games);
+      if (progress > last_progress) {
+        cout << progress * 100 << "%" << endl;
+        last_progress = progress;
+      }
     }
   }
 
-  delete white_player;
-  delete black_player;
+  for (int i = 0; i < N_THREADS; ++i) {
+    worker_threads[i].join();
+    b += workers[i]->get_black_wins();
+    w += workers[i]->get_white_wins();
+    delete workers[i];
+  }
 
   cout << "White: " << w << endl;
-  cout << "Black: " << b << endl;
+  cout << "BLack: " << b << endl;
 }

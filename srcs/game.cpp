@@ -19,6 +19,7 @@ Game::Game(Player * white_player, Player * black_player) {
   white_player_ = white_player;
   print_board_ = true;
   print_winner_ = true;
+
   reset();
 }
 
@@ -87,6 +88,7 @@ void Game::reset() {
   } else {
     board_ = Board(white_space_, black_space_);
   }
+
   current_player_ = white_player_;
   move_counter_ = 0;
   white_player_ -> reset();
