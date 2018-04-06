@@ -21,13 +21,24 @@ class Game {
   Player * white_player_;
   Player * black_player_;
   Player * current_player_;
+  int white_space_;
+  int black_space_;
   int move_counter_;
+  bool print_board_;
+  bool print_winner_;
+  bool white_start_;
+
+  void print_board();
  public:
   Game(int w, int b, Player * white_player, Player * black_player);
   Game(Player * white_player, Player * black_player);
   void start();
   bool next_move();
   tile get_winner();
+  void set_print(bool v);
+  void reset();
+  void switch_sides();
+  void switch_sides(tile side);
 };
 
 #endif

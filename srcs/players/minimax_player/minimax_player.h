@@ -39,7 +39,7 @@ class Minimax_Player : public Player {
     }
   };
   long max_time_;
-  std::clock_t start_time_;
+  struct timespec start_time_;
   bool timeout_flag_;
   std::map<llboard, double> boardhash;
 

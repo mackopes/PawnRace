@@ -18,14 +18,14 @@ class Benchmark_Player : public Player {
   int turn_;
 
   Random_Player * rp;
-  Minimax_Player * mp;
+  Player * bp;
 
   int random_int(int min, int max);
  public:
-  Benchmark_Player(tile color);
-  Benchmark_Player(tile color, long max_time);
+  Benchmark_Player(Player * benchmarked_player);
   Move get_move(Board board);
   ~Benchmark_Player();
+  void reset();
 };
 
 #endif

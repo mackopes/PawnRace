@@ -28,7 +28,7 @@ players
     ✔ random player @done (17-02-18 22:19)
       ✔ en passant capture @done (17-02-18 22:19)
     ☐ print player ??
-    ☐ minimax AI general
+    ✔ minimax AI general @done (18-04-05 23:05)
       ✔ basic minimax @done (18-04-01 16:36)
       ✔ alpha-beta pruning @done (18-04-01 16:36)
       ✔ board hashing @done (18-04-03 13:07)
@@ -39,7 +39,7 @@ players
       ☐ genetic updater
    ☐ player stats
 
- ☐ stats
+ ☐ stats class
 optimisations
     ☐ faster rev_bites
 
@@ -51,3 +51,6 @@ move
     ✔ get winner @done (17-02-18 21:50)
 
  ☐ exceptions
+ ✔ concurrency @done (18-04-06 12:01)
+   ✔ Game worker @done (18-04-06 12:01)
+   ✔ utilise game worker in main @done (18-04-06 12:01)
