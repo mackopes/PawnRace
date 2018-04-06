@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <string>
 #include <thread>
+#include <chrono>
 
 //project includes
 #include "header_files/board.h"
@@ -17,7 +18,7 @@
 #include "header_files/game_worker.h"
 #include "../dllibs/argagg.hpp"
 
-#define MAX_THREADS 16
+#define DEF_THREADS 32
 
 //using
 using namespace std;
@@ -156,7 +157,7 @@ int main(int argc, char **argv) {
   cout << "Number of games: " << n_games << endl;
   int w = 0, b = 0;
 
-  int n_threads = thread::hardware_concurrency() - 2 < MAX_THREADS ? thread::hardware_concurrency() - 2 : MAX_THREADS;
+  int n_threads = thread::hardware_concurrency() < DEF_THREADS ? thread::hardware_concurrency() : DEF_THREADS;
   if (args["n-threads"]) {
     n_threads = args["n-threads"];
   }
@@ -189,6 +190,7 @@ int main(int argc, char **argv) {
         last_progress = progress;
       }
     }
+    this_thread::sleep_for(chrono::milliseconds(200));
   }
 
   for (int i = 0; i < n_threads; ++i) {
