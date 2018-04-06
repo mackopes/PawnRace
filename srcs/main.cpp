@@ -27,39 +27,39 @@ argagg::parser_results get_args(int argc, char **argv) {
   argagg::parser argparser {{
       {
         "help", {"-h", "--help"},
-        "shows this help message", 0
+        "Show this help message.", 0
       },
       {
         "white", {"-w", "--white"},
-        "Set white player. Types of player: Human, Random, AI(default)", 1
+        "Set white player. Types of player: Human, Random, AI(default).", 1
       },
       {
         "black", {"-b", "--black"},
-        "Set black player. Types of player: Human, Random, AI(default)", 1
+        "Set black player. Types of player: Human, Random, AI(default).", 1
       },
       {
         "ngames", {"-n", "--ngames"},
-        "Set number of games to play. Default: 1", 1
+        "Set number of games to play. Default: 1.", 1
       },
       {
         "aitimeout", {"--ai-timeout"},
-        "Set timoeut of AIs. Default: 5000", 1
+        "Set timoeut of AIs. Default: 5000.", 1
       },
       {
         "benchmark", {"--benchmark"},
-        "Benchmark two players against each other", 0
+        "Benchmark two players against each other.", 0
       },
       {
         "no-print", {"--no-print"},
-        "Disables printing of board after each move", 0
+        "Disables printing of board after each move.", 0
       },
       {
         "n-threads", {"--n-threads"},
-        "Number of threads to use", 1
+        "Number of threads to use. Default: 1.", 1
       },
       {
         "switch-sides", {"-s", "--switch-sides"},
-        "Switch starting player every second game", 0
+        "Switch starting player every second game.", 0
       }
     }};
 
