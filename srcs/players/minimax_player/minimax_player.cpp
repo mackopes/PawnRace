@@ -10,14 +10,14 @@ using std::min;
 
 Minimax_Player::Minimax_Player(tile color) : Player(color) {
   max_time_ = 5000;
-  start_time_ = std::clock();
+  set_timer();
   timeout_flag_ = false;
   boardhash.clear();
 }
 
 Minimax_Player::Minimax_Player(tile color, long max_time) : Player(color) {
   max_time_ = max_time;
-  start_time_ = std::clock();
+  set_timer();
   timeout_flag_ = false;
   boardhash.clear();
 }
@@ -40,12 +40,15 @@ Move Minimax_Player::get_move(Board board) {
 
 /* Set the timer */
 void Minimax_Player::set_timer() {
-  start_time_ = std::clock();
+  clock_gettime(CLOCK_THREAD_CPUTIME_ID, &start_time_);
 }
 
 /* Ckeck if ran out of time (given by max_time_) */
 bool Minimax_Player::timeout() {
-  return (1000.0 * (std::clock() - start_time_) / CLOCKS_PER_SEC) >= max_time_;
+  struct timespec stop;
+  clock_gettime(CLOCK_THREAD_CPUTIME_ID, &stop);
+  long t = (stop.tv_sec - start_time_.tv_sec) * 1000 + (stop.tv_nsec - start_time_.tv_nsec) / 1000000;
+  return t >= max_time_;
 }
 
 Move Minimax_Player::minimax(ll attacker, ll deffender, ll ep) {
