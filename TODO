@@ -51,6 +51,6 @@ move
     ✔ get winner @done (17-02-18 21:50)
 
  ☐ exceptions
- ☐ concurrency
-   ☐ Game worker
-   ☐ utilise game worker in main
+ ✔ concurrency @done (18-04-06 12:01)
+   ✔ Game worker @done (18-04-06 12:01)
+   ✔ utilise game worker in main @done (18-04-06 12:01)
