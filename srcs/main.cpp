@@ -220,6 +220,6 @@ int main(int argc, char **argv) {
     delete workers[i];
   }
 
-  cout << "White: " << w << endl;
-  cout << "Black: " << b << endl;
+  cout << "White: " << w << " (" << double(w) / double(n_games) * 100 << "%)" << endl;
+  cout << "Black: " << b << " (" << double(b) / double(n_games) * 100 << "%)" << endl;
 }
