@@ -18,7 +18,7 @@
 #include "header_files/game_worker.h"
 #include "../dllibs/argagg.hpp"
 
-#define DEF_THREADS 32
+#define DEF_THREADS 1
 
 //using
 using namespace std;
