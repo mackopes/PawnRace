@@ -8,6 +8,7 @@ Game::Game(int w, int b, Player * white_player, Player * black_player) {
   white_player_ = white_player;
   print_board_ = true;
   print_winner_ = true;
+  white_start_ = true;
   reset();
 }
 
@@ -19,7 +20,7 @@ Game::Game(Player * white_player, Player * black_player) {
   white_player_ = white_player;
   print_board_ = true;
   print_winner_ = true;
-
+  white_start_ = true;
   reset();
 }
 
@@ -81,6 +82,11 @@ void Game::set_print(bool v) {
   print_winner_ = v;
 }
 
+void Game::switch_sides() {
+  white_start_ = !white_start_;
+  reset();
+}
+
 /* Reset game and both players */
 void Game::reset() {
   if ((white_space_ == -1) || (black_space_ == -1)) {
@@ -89,8 +95,22 @@ void Game::reset() {
     board_ = Board(white_space_, black_space_);
   }
 
-  current_player_ = white_player_;
+  if (white_start_) {
+    current_player_ = white_player_;
+  } else {
+    current_player_ = black_player_;
+  }
   move_counter_ = 0;
   white_player_ -> reset();
   black_player_ -> reset();
+}
+
+void Game::switch_sides(tile side) {
+  if (side == black) {
+    white_start_ = false;
+    reset();
+  } else {
+    white_start_ = true;
+    reset();
+  }
 }

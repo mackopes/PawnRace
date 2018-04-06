@@ -56,6 +56,10 @@ argagg::parser_results get_args(int argc, char **argv) {
       {
         "n-threads", {"--n-threads"},
         "Number of threads to use", 1
+      },
+      {
+        "switch-sides", {"-s", "--switch-sides"},
+        "Switch starting player every second game", 0
       }
     }};
 

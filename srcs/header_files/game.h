@@ -26,6 +26,7 @@ class Game {
   int move_counter_;
   bool print_board_;
   bool print_winner_;
+  bool white_start_;
 
   void print_board();
  public:
@@ -36,6 +37,8 @@ class Game {
   tile get_winner();
   void set_print(bool v);
   void reset();
+  void switch_sides();
+  void switch_sides(tile side);
 };
 
 #endif
