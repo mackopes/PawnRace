@@ -108,9 +108,8 @@ void Game::reset() {
 void Game::switch_sides(tile side) {
   if (side == black) {
     white_start_ = false;
-    reset();
   } else {
     white_start_ = true;
-    reset();
   }
+  reset();
 }
