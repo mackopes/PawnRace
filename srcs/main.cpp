@@ -82,19 +82,27 @@ Player * get_player(argagg::parser_results args, string player) {
     if (string("human").compare(playerarg) == 0) {
       if (string("white").compare(player) == 0) {
         ret = new Human_Player(white);
-        cout << "White Player: Human" << endl;
+        if (!args["no-print"]) {
+          cout << "White Player: Human" << endl;
+        }
       } else if (string("black").compare(player) == 0) {
         ret = new Human_Player(black);
-        cout << "Black Player: Human" << endl;
+        if (!args["no-print"]) {
+          cout << "Black Player: Human" << endl;
+        }
       }
 
     } else if (string("random").compare(playerarg) == 0) {
       if (string("white").compare(player) == 0) {
         ret = new Random_Player(white);
-        cout << "White Player: Random" << endl;
+        if (!args["no-print"]) {
+          cout << "White Player: Random" << endl;
+        }
       } else if (string("black").compare(player) == 0) {
         ret = new Random_Player(black);
-        cout << "Black Player: Random" << endl;
+        if (!args["no-print"]) {
+          cout << "Black Player: Random" << endl;
+        }
       }
 
     } else if (string("ai").compare(playerarg) == 0) {
@@ -106,10 +114,14 @@ Player * get_player(argagg::parser_results args, string player) {
 
       if (string("white").compare(player) == 0) {
         ret = new Minimax_Player(white, t);
-        cout << "White Player: AI" << endl;
+        if (!args["no-print"]) {
+          cout << "White Player: AI" << endl;
+        }
       } else if (string("black").compare(player) == 0) {
         ret = new Minimax_Player(black, t);
-        cout << "Black Player: AI" << endl;
+        if (!args["no-print"]) {
+          cout << "Black Player: AI" << endl;
+        }
       }
 
     } else {
@@ -125,10 +137,14 @@ Player * get_player(argagg::parser_results args, string player) {
 
     if (string("white").compare(player) == 0) {
       ret = new Minimax_Player(white, t);
-      cout << "White Player: AI" << endl;
+      if (!args["no-print"]) {
+        cout << "White Player: AI" << endl;
+      }
     } else if (string("black").compare(player) == 0) {
       ret = new Minimax_Player(black, t);
-      cout << "Black Player: AI" << endl;
+      if (!args["no-print"]) {
+        cout << "Black Player: AI" << endl;
+      }
     }
 
   }
