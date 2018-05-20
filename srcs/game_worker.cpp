@@ -23,7 +23,7 @@ void Game_Worker::start() {
 	for (int i = shift_; i < n_games_; i = i + n_threads_) {
 		currently_processed_game_ = i;
 		game.reset();
-		if ((args_["switch-sides"]) && (i % 2)) {
+		if ((args_["switch-sides"]) && (i % 2) == 0) {
 			game.switch_sides(black);
 		} else {
 			game.switch_sides(white);

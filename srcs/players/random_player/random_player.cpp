@@ -6,7 +6,13 @@
 Random_Player :: Random_Player(tile color) : Player(color) {
   timeval t1;
   gettimeofday(&t1, NULL);
-  srand(t1.tv_usec * t1.tv_sec);
+  seed_ = t1.tv_sec * t1.tv_usec;
+  srand(seed_);
+}
+
+Random_Player :: Random_Player(tile color, long seed) : Player(color) {
+  seed_ = seed;
+  srand(seed_);
 }
 
 Move Random_Player :: get_move(Board board) {

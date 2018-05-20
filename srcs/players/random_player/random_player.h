@@ -22,11 +22,16 @@ class Random_Player : public Player {
     template<typename T>
     T random_element(std::vector<T> & v);
     int random_int(int min, int max);
+    long seed_;
   public:
     Random_Player(tile color);
+    Random_Player(tile color, long seed);
     Move get_move(Board board);
     ~Random_Player() {
         //empty
+    }
+    void reset() {
+      srand(seed_);
     }
 };
 
