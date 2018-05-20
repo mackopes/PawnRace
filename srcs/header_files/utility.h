@@ -5,10 +5,10 @@
 #include <bitset>
 #include <algorithm>
 #include <string>
+#include <iostream>
 
 //project includes
 #include "general_header.h"
-
 
 tile get_opposite_player(tile t);
 std::bitset<64> bites(unsigned long long a);

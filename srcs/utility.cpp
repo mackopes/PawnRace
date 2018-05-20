@@ -16,3 +16,4 @@ std::string string_to_lower(std::string str) {
     std::transform(str.begin(), str.end(), str.begin(), ::tolower);
     return str;
 }
+
