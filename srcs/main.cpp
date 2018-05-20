@@ -191,6 +191,7 @@ int main(int argc, char **argv) {
     //Game_worker(Player* white_player, Player* black_player, int n_games, int n_threads, int shift, argagg::parser_results args)
     workers[i] = new Game_Worker(get_player(args, "white"), get_player(args, "black"), n_games, n_threads, i, args);
     worker_threads.emplace_back(thread_task, workers[i]);
+    this_thread::sleep_for(chrono::milliseconds(20));
   }
 
   double last_progress = -1;
