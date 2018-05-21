@@ -140,5 +140,7 @@ Player * get_player(argagg::parser_results args, string player) {
     ret = new Benchmark_Player(ret);
   }
 
+  ret -> set_print(!args["no-print"]);
+
   return ret;
 }

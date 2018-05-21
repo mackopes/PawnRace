@@ -24,6 +24,7 @@ Minimax_Player::Minimax_Player(tile color, long max_time) : Player(color) {
 
 Move Minimax_Player::get_move(Board board) {
   ll w, b, ep;
+  best_eval_ = 0;
   //convert the board to longlongs
   //void getll(ll & w, ll & b, ll & ep, Board board);
   getll(w, b, ep, board);
@@ -64,7 +65,10 @@ Move Minimax_Player::minimax(ll attacker, ll deffender, ll ep) {
     }
   }
 
-  //std::cout << "depth reached: " << depth << std::endl;
+  if(get_print()) {
+    std::cout << "Score: " << best_eval_ << std::endl;
+    std::cout << "Depth reached: " << depth << std::endl;
+  }
   return m;
 }
 
@@ -212,7 +216,7 @@ Move Minimax_Player::minimax_start(ll attacker, ll deffender, ll ep, int max_dep
     }
   }
 
-  // std::cout << best_score << std::endl;
+  best_eval_ = best_score > best_eval_ ? best_score : best_eval_;
 
   return best_move;
 }
@@ -345,7 +349,7 @@ double Minimax_Player::alphabeta_minimizing(ll attacker, ll deffender, ll ep, in
 
 /* General eval, calling all other evals */
 double Minimax_Player::eval (ll attacker, ll deffender, int depth) {
-  return eval_positions(attacker, deffender) / (depth * 0.1);
+  return eval_positions(attacker, deffender)/ (depth * 0.1);
 }
 
 /* evaluates positions of pawns on board

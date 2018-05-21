@@ -38,6 +38,8 @@ class Minimax_Player : public Player {
              || (attacker == o.attacker && deffender == o.deffender && ep < o.ep);
     }
   };
+
+  double best_eval_; // to be included in stats
   long max_time_;
   struct timespec start_time_;
   bool timeout_flag_;

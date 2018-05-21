@@ -11,12 +11,22 @@
 class Player {
  private:
   tile color_;
+  bool print_;
  protected:
   bool repeat_move;
  public:
   Player(tile color) {
     color_ = color;
     repeat_move = false;
+    print_ = false;
+  }
+
+  void set_print(bool print) {
+    print_ = print;
+  }
+
+  bool get_print() {
+    return print_;
   }
 
   tile color() {
