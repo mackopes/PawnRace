@@ -21,7 +21,7 @@ class Player {
     print_ = false;
   }
 
-  void set_print(bool print) {
+  virtual void set_print(bool print) {
     print_ = print;
   }
 

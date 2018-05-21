@@ -349,7 +349,9 @@ double Minimax_Player::alphabeta_minimizing(ll attacker, ll deffender, ll ep, in
 
 /* General eval, calling all other evals */
 double Minimax_Player::eval (ll attacker, ll deffender, int depth) {
-  return eval_positions(attacker, deffender)/ (depth * 0.1);
+  double e = 2.71828;
+  double eval = eval_positions(attacker, deffender)/ (depth);
+  return 1 / (1 + std::pow(e, -eval)); // sigmoid function
 }
 
 /* evaluates positions of pawns on board

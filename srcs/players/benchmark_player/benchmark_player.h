@@ -24,6 +24,11 @@ class Benchmark_Player : public Player {
  public:
   Benchmark_Player(Player * benchmarked_player);
   Move get_move(Board board);
+  void set_print(bool print) {
+    Player::set_print(print);
+    rp -> set_print(print);
+    bp -> set_print(print);
+  }
   ~Benchmark_Player();
   void reset();
 };

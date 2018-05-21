@@ -27,8 +27,10 @@ class Game {
   bool print_board_;
   bool print_winner_;
   bool white_start_;
-
   void print_board();
+  void pushmove(Move move) {
+      moves_.push_back(move);
+  }
  public:
   Game(int w, int b, Player * white_player, Player * black_player);
   Game(Player * white_player, Player * black_player);

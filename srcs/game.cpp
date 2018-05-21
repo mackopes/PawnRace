@@ -64,6 +64,8 @@ bool Game::next_move() {
       }
     }
 
+   pushmove(move); //add move to the list of moves
+
     //switch player
     current_player_ = current_player_ == white_player_ ? black_player_ : white_player_;
 

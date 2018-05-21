@@ -7,7 +7,7 @@ game
       ☐ number of moves
       ☐ number of pawns after every move
       ☐ graphs?
-    ☐ custom printing stages of game
+    ✔ custom printing stages of game
     ✔ command line arguments parsing @done (18-04-02 01:40)
     ✔ redo makefile @done (18-04-04 22:23)
     ✔ fix ugly pointers to players in main.cpp @done (18-04-03 09:54)
@@ -39,7 +39,7 @@ players
       ☐ genetic updater
    ☐ player stats
 
- ☐ stats class
+ ☐ stats class - maybe not?
 optimisations
     ☐ faster rev_bites
 
