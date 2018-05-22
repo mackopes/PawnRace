@@ -57,17 +57,19 @@ Move Minimax_Player::minimax(ll attacker, ll deffender, ll ep) {
   Move m;
   timeout_flag_ = false;
   set_timer();
-  while (!timeout()) {
+    
+  do{
+    depth_reached_ = 0;
     Move m_ = minimax_start(attacker, deffender, ep, depth);
     if (!timeout_flag_) {
       m = m_;
       depth++;
     }
-  }
+  } while (!timeout() && depth_reached_ >= depth - 1);
 
   if(get_print()) {
     std::cout << "Score: " << best_eval_ << std::endl;
-    std::cout << "Depth reached: " << depth << std::endl;
+    std::cout << "Depth reached: " << depth - 1 << std::endl;
   }
   return m;
 }
@@ -228,6 +230,8 @@ double Minimax_Player::alphabeta_maximizing(ll attacker, ll deffender, ll ep, in
     return -1;
   }
 
+  depth_reached_ = depth_reached_ < cur_depth ? cur_depth : depth_reached_;
+
   if (cur_depth >= max_depth || has_ended(attacker, deffender)) {
     return eval(attacker, deffender, cur_depth);
   }
@@ -290,6 +294,8 @@ double Minimax_Player::alphabeta_minimizing(ll attacker, ll deffender, ll ep, in
     timeout_flag_ = true;
     return -1;
   }
+
+  depth_reached_ = depth_reached_ < cur_depth ? cur_depth : depth_reached_;
 
   if (cur_depth >= max_depth || has_ended(attacker, deffender)) {
     return eval(rev_bites(deffender), rev_bites(attacker), cur_depth);

@@ -39,6 +39,7 @@ class Minimax_Player : public Player {
     }
   };
 
+  int depth_reached_;
   double best_eval_; // to be included in stats
   long max_time_;
   struct timespec start_time_;
