@@ -3,7 +3,8 @@ LDFLAGS=-Wall -O3 -pthread
 CXXFLAGS=-Wall -c -O3 -pthread
 BUILD_DIR=./build
 PLAYERS=random_player/random_player.cpp human_player/human_player.cpp \
-	minimax_player/minimax_player.cpp benchmark_player/benchmark_player.cpp
+	minimax_player/minimax_player.cpp benchmark_player/benchmark_player.cpp \
+	minimax_player_experiment/minimax_player_experimental.cpp
 PLAYERS_PREFIX=players
 SOURCES_DIR=srcs
 SOURCES=$(addprefix $(SOURCES_DIR)/,main.cpp move.cpp game.cpp bitboard.cpp \

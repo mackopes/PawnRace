@@ -91,7 +91,6 @@ Player * get_player(argagg::parser_results args, string player) {
           cout << "Black Player: Random" << endl;
         }
       }
-
     } else if (string("ai").compare(playerarg) == 0) {
       int t = 5000;
 
@@ -111,8 +110,27 @@ Player * get_player(argagg::parser_results args, string player) {
         }
       }
 
+    } else if (string("ai-experimental").compare(playerarg) == 0) {
+      int t = 5000;
+
+      if (args["aitimeout"]) {
+        t = args["aitimeout"];
+      }
+
+      if (string("white").compare(player) == 0) {
+        ret = new Minimax_Player_Experimental(white, t);
+        if (!args["no-print"]) {
+          cout << "White Player: AI-Experimental" << endl;
+        }
+      } else if (string("black").compare(player) == 0) {
+        ret = new Minimax_Player_Experimental(black, t);
+        if (!args["no-print"]) {
+          cout << "Black Player: AI-Experimental" << endl;
+        }
+      }
+
     } else {
-      cerr << "Unkown player type." << endl;
+    cerr << "Unkown player type." << endl;
       exit(0);
     }
   } else {
